@@ -1,0 +1,65 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th scope="col" *ngFor="let dayPlan of dayPlans">{{ dayPlan.label }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="colgroup">HR Bump</th>
+      <td *ngFor="let dayPlan of dayPlans">
+        {{ printTime(dayPlan.lastHRBump) }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="colgroup">To Bed</th>
+      <td *ngFor="let dayPlan of dayPlans">
+        {{ printTime(dayPlan.toBed) }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="colgroup">Wake Up</th>
+      <td *ngFor="let dayPlan of dayPlans">
+        {{ printTime(dayPlan.wakeUp) }}
+      </td>
+    </tr>
+    <tr>
+      <th scope="colgroup">At Office</th>
+      <td *ngFor="let dayPlan of dayPlans">
+        {{ printTime(dayPlan.atOffice) }}
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td *ngFor="let dayPlan of dayPlans">
+        <div class="form-submit">
+          <input
+            type="button"
+            id="submit"
+            class="form-submit-input"
+            value="Remove"
+            (click)="onRemove(dayPlan)"
+          />
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>Details</td>
+      <td *ngFor="let dayPlan of dayPlans">
+        <details>
+          <summary>expand</summary>
+          <table>
+            <tbody>
+              <tr *ngFor="let a of dayPlan.agenda.agenda">
+                <td>{{ a.name }}</td>
+                <td>{{ printTime(a.startTime) }}</td>
+                <td>({{ printTime(a.duration) }})</td>
+              </tr>
+            </tbody>
+          </table>
+        </details>
+      </td>
+    </tr>
+  </tbody>
+</table>
