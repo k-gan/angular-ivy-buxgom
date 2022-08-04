@@ -1,12 +1,5 @@
-<!-- TODO: There needs to be a select at the top of this form to choose between:
-Default, Training, Tomek -->
-<select class="form-select">
-  <option>Default</option>
-  <option>Training</option>
-  <option>Tomek</option>
-</select>
 <form #dayPlanGeneratorForm="ngForm">
-  <div class="form-input">
+  <div class="mb-3">
     <label for="label" class="form-label">Name</label>
     <input
       type="text"
@@ -59,30 +52,32 @@ Default, Training, Tomek -->
       [(ngModel)]="model.agendaInput.running"
       name="running"
     />
-    <label for="running" class="form-check-label">Running</label>
+    <label for="running" class="form-label">Running</label>
   </div>
-  <label for="at-office" class="form-label">At office:</label>
-  <select
-    class="form-select"
-    aria-label="Default select example"
-    required
-    [(ngModel)]="model.atOfficeId"
-    name="at-office"
-  >
-    <option
-      *ngFor="let atOfficeTimeKey of Object.keys(model.atOfficeTimes)"
-      [value]="atOfficeTimeKey"
+  <div class="mb-3">
+    <label for="at-office" class="form-label">At office:</label>
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      required
+      [(ngModel)]="model.atOfficeId"
+      name="at-office"
     >
-      {{ model.atOfficeTimes[atOfficeTimeKey]['hours'] }}:{{
-        ('00' + model.atOfficeTimes[atOfficeTimeKey]['minutes']).slice(-2)
-      }}
-    </option>
-  </select>
-  <div class="form-submit">
+      <option
+        *ngFor="let atOfficeTimeKey of Object.keys(model.atOfficeTimes)"
+        [value]="atOfficeTimeKey"
+      >
+        {{ model.atOfficeTimes[atOfficeTimeKey]['hours'] }}:{{
+          ('00' + model.atOfficeTimes[atOfficeTimeKey]['minutes']).slice(-2)
+        }}
+      </option>
+    </select>
+  </div>
+  <div class="form-submit mb-3">
     <input
       type="button"
       id="submit"
-      class="form-submit-input"
+      class="btn btn-primary"
       value="Submit"
       (click)="onSubmit()"
     />
