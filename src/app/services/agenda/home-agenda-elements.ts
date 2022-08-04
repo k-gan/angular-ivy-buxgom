@@ -17,5 +17,17 @@ export class HomeAgendaElements {
       hours: 1,
       minutes: 0,
     });
+    this.wrappedAgendaElements.set(HomeAgendaPoint.DriveToTomeksFromHome, {
+      hours: 0,
+      minutes: 20,
+    });
+    this.wrappedAgendaElements.set(HomeAgendaPoint.AtTomeks, {
+      hours: 0,
+      minutes: 0,
+    });
+    this.wrappedAgendaElements.set(HomeAgendaPoint.DriveToOfficeFromTomeks, {
+      hours: 0,
+      minutes: 30,
+    });
   }
 }

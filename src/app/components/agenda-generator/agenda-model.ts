@@ -15,6 +15,7 @@ export class AgendaModel {
       label: 'Agenda',
       morningPages: false,
       training: false,
+      tomeks: false,
       running: false,
       atOffice: atOfficeTimes[0],
     };

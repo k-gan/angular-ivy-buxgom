@@ -46,6 +46,23 @@ export class AgendaGenerationService {
       );
       agenda.addElementAfter(DefaultAgendaPoint.WakeUp, morningPagesEl);
     }
+    if (input.tomeks) {
+      const elements = [
+        this.agendaCollaterService.createAgendaElement(
+          HomeAgendaPoint.DriveToOfficeFromTomeks
+        ),
+        this.agendaCollaterService.createAgendaElement(
+          HomeAgendaPoint.AtTomeks
+        ),
+        this.agendaCollaterService.createAgendaElement(
+          HomeAgendaPoint.DriveToTomeksFromHome
+        ),
+      ];
+      for (let el of elements) {
+        agenda.addElementAfter(DefaultAgendaPoint.BathroomTime, el);
+      }
+      agenda.removeElement(HomeAgendaPoint.DriveToOfficeFromHome);
+    }
 
     return this.finalizeAgenda(agenda, input.atOffice);
   }

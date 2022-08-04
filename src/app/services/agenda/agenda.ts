@@ -37,4 +37,9 @@ export abstract class Agenda {
     const idx = this.agenda.findIndex((el) => el.agenda === pointOnAgenda);
     this.agenda.splice(idx + 1, 0, element);
   }
+
+  removeElement(pointOnAgenda: AgendaPoint): void {
+    const idx = this.agenda.findIndex((el) => el.agenda === pointOnAgenda);
+    this.agenda.splice(idx, 1);
+  }
 }
