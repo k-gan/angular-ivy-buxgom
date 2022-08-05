@@ -1,4 +1,5 @@
 import { Agenda } from './agenda';
+import { AgendaPoint } from './agenda-point';
 import { DefaultAgendaElements } from './default-agenda-elements';
 import { DefaultAgendaPoint } from './default-agenda-point';
 import { HomeAgendaElements } from './home-agenda-elements';
@@ -18,20 +19,14 @@ export class DefaultAgenda extends Agenda {
     return new Array<Object>(DefaultAgendaPoint, HomeAgendaPoint);
   }
 
-  protected initializeAgenda(): void {
-    this.agenda = [
-      this.agendaElementCollater.createAgendaElement(
-        DefaultAgendaPoint.LastHRBump
-      ),
-      this.agendaElementCollater.createAgendaElement(DefaultAgendaPoint.ToBed),
-      this.agendaElementCollater.createAgendaElement(DefaultAgendaPoint.WakeUp),
-      this.agendaElementCollater.createAgendaElement(
-        DefaultAgendaPoint.BathroomTime
-      ),
-      this.agendaElementCollater.createAgendaElement(
-        HomeAgendaPoint.DriveToOfficeFromHome
-      ),
-      this.agendaElementCollater.createAgendaElement(DefaultAgendaPoint.AtWork),
-    ];
+  protected agendaPoints(): Array<AgendaPoint> {
+    return new Array<AgendaPoint>(
+      DefaultAgendaPoint.LastHRBump,
+      DefaultAgendaPoint.ToBed,
+      DefaultAgendaPoint.WakeUp,
+      DefaultAgendaPoint.BathroomTime,
+      HomeAgendaPoint.DriveToOfficeFromHome,
+      DefaultAgendaPoint.AtWork
+    );
   }
 }

@@ -16,9 +16,19 @@ export abstract class Agenda {
     this.initializeAgenda();
     this.validateAgenda();
   }
+
   protected abstract registerAgendaElements(): void;
-  protected abstract initializeAgenda(): void;
+  protected abstract agendaPoints(): Array<AgendaPoint>;
   protected abstract pointTypesToValidate(): Array<Object>;
+
+  private initializeAgenda(): void {
+    const agenda: Array<AgendaElement> = [];
+    for (let agendaPoint of this.agendaPoints()) {
+      const agEl = this.agendaElementCollater.createAgendaElement(agendaPoint);
+      agenda.push(agEl);
+    }
+    this.agenda = agenda;
+  }
 
   private validateAgenda() {
     for (let points of this.pointTypesToValidate()) {
