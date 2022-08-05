@@ -25,10 +25,15 @@ export abstract class Agenda {
       const availablePoints: Array<string> = Object.values(points);
       const usedPoints: Array<string> = this.agenda.map((aEl) => aEl.agenda);
       const unusedPoints = availablePoints.filter(
-        (ap) => usedPoints.find((up) => up === ap) === undefined
+        (ap) => usedPoints.findIndex((up) => up === ap) < 0
       );
+
       if (unusedPoints.length > 0) {
-        console.log('Unused points: ' + JSON.stringify(unusedPoints));
+        console.log(
+          `Unused points in (${this.constructor.name}): ${JSON.stringify(
+            unusedPoints
+          )}`
+        );
       }
     }
   }

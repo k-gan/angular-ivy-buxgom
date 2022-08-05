@@ -9,10 +9,9 @@ import { AgendaModel } from './agenda-model';
   templateUrl: './agenda-generator.component.html',
   styleUrls: ['./agenda-generator.component.css'],
 })
-export class AgendaGeneratorComponent implements OnInit {
+export class AgendaGeneratorComponent {
   Object = Object;
-
-  public model: AgendaModel;
+  model: AgendaModel;
 
   constructor(
     private agendaService: AgendaGenerationService,
@@ -22,8 +21,6 @@ export class AgendaGeneratorComponent implements OnInit {
     const atOfficeTimes = atOfficeTimeService.generateAtOfficeSelection();
     this.model = new AgendaModel(atOfficeTimes);
   }
-
-  ngOnInit() {}
 
   onSubmit() {
     const agenda = this.agendaService.generateAgenda(
