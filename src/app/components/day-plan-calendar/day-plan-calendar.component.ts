@@ -45,10 +45,10 @@ export class DayPlanCalendarComponent {
   private createDayPlanFromAgenda(agenda: Agenda): DayPlan {
     const dayPlan = new DayPlan(
       agenda.name,
-      this.getStartTime(agenda.agenda, DefaultAgendaPoint.AtWork),
-      this.getStartTime(agenda.agenda, DefaultAgendaPoint.WakeUp),
-      this.getStartTime(agenda.agenda, DefaultAgendaPoint.ToBed),
-      this.getStartTime(agenda.agenda, DefaultAgendaPoint.LastHRBump)
+      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.AtWork),
+      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.WakeUp),
+      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.ToBed),
+      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.LastHRBump)
     );
     dayPlan.agenda = agenda;
 

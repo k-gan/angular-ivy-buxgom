@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AgendaElement } from './agenda-element';
-import { AgendaPoint } from './agenda-point';
 
+// It might be a good idea to delete this at some point.
+// This should probably be run as a test, not as part of runtime.
 @Injectable({ providedIn: 'root' })
 export class MissingAgendaValidatorService {
   constructor() {}

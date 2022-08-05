@@ -4,7 +4,7 @@ import { AgendaPoint } from './agenda-point';
 import { MissingAgendaValidatorService } from './missing-agenda-validator.service';
 
 export abstract class Agenda {
-  agenda: Array<AgendaElement>;
+  agendaElements: Array<AgendaElement>;
   readonly name: string;
 
   constructor(
@@ -26,7 +26,7 @@ export abstract class Agenda {
   private validateAgenda(): void {
     this.missingAgendaValidator.validateAgenda(
       this.pointTypesToValidate(),
-      this.agenda
+      this.agendaElements
     );
   }
 
@@ -36,16 +36,20 @@ export abstract class Agenda {
       const agEl = this.agendaElementCollater.createAgendaElement(agendaPoint);
       agenda.push(agEl);
     }
-    this.agenda = agenda;
+    this.agendaElements = agenda;
   }
 
   addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
-    const idx = this.agenda.findIndex((el) => el.agenda === pointOnAgenda);
-    this.agenda.splice(idx + 1, 0, element);
+    const idx = this.agendaElements.findIndex(
+      (el) => el.agenda === pointOnAgenda
+    );
+    this.agendaElements.splice(idx + 1, 0, element);
   }
 
   removeElement(pointOnAgenda: AgendaPoint): void {
-    const idx = this.agenda.findIndex((el) => el.agenda === pointOnAgenda);
-    this.agenda.splice(idx, 1);
+    const idx = this.agendaElements.findIndex(
+      (el) => el.agenda === pointOnAgenda
+    );
+    this.agendaElements.splice(idx, 1);
   }
 }

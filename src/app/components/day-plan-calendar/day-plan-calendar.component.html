@@ -51,7 +51,7 @@
           <summary>expand</summary>
           <table>
             <tbody>
-              <tr *ngFor="let a of dayPlan.agenda.agenda">
+              <tr *ngFor="let a of dayPlan.agenda.agendaElements">
                 <td>{{ a.name }}</td>
                 <td>{{ printTime(a.startTime) }}</td>
                 <td>({{ printTime(a.duration) }})</td>
