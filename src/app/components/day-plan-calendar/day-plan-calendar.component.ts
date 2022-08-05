@@ -6,7 +6,6 @@ import { Agenda } from '../../services/agenda/agenda';
 import { AgendaPoint } from '../../services/agenda/agenda-point';
 import { DefaultAgendaPoint } from '../../services/agenda/default-agenda-point';
 import { DayPlan } from '../../services/day-plan';
-import { DayPlanSyncService } from '../../services/day-plan-sync.service';
 
 @Component({
   selector: 'app-day-plan-calendar',
@@ -14,7 +13,8 @@ import { DayPlanSyncService } from '../../services/day-plan-sync.service';
   styleUrls: ['./day-plan-calendar.component.css'],
 })
 export class DayPlanCalendarComponent implements OnInit {
-  public dayPlans: DayPlan[] = [];
+  dayPlans: DayPlan[] = [];
+  visibility: string = 'hidden';
 
   private readonly coreAgendaPoints: Array<AgendaPoint> = [
     DefaultAgendaPoint.LastHRBump,
@@ -57,11 +57,16 @@ export class DayPlanCalendarComponent implements OnInit {
       );
       dayPlan.agenda = agenda;
       this.dayPlans.push(dayPlan);
+      this.updateVisibility();
     });
   }
 
   public onRemove(dayPlan: any): void {
     this.dayPlans = this.dayPlans.filter((fDayPlan) => fDayPlan !== dayPlan);
+    this.updateVisibility();
+  }
+  updateVisibility() {
+    this.visibility = this.dayPlans.length > 0 ? 'visible' : 'hidden';
   }
 
   ngOnInit() {}
