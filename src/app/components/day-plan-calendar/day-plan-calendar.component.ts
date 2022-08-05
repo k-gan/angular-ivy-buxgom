@@ -15,7 +15,7 @@ import { DayPlan } from '../../services/day-plan';
 })
 export class DayPlanCalendarComponent {
   dayPlans: DayPlan[] = [];
-  visibility: string = 'hidden';
+  visibility: boolean = false;
 
   constructor(public agendaSyncService: AgendaSynchronizeService) {
     agendaSyncService.agendaChanged$.subscribe((agenda: Agenda) => {
@@ -33,7 +33,7 @@ export class DayPlanCalendarComponent {
   }
 
   updateVisibility() {
-    this.visibility = this.dayPlans.length > 0 ? 'visible' : 'hidden';
+    this.visibility = this.dayPlans.length > 0;
   }
 
   private agendaUpdate(agenda: Agenda): void {
