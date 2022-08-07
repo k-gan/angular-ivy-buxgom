@@ -29,8 +29,7 @@ export class TrainingAgenda extends Agenda {
       TrainingAgendaPoint.Workout,
       TrainingAgendaPoint.PostWorkout,
       TrainingAgendaPoint.DriveToOfficeFromGym,
-      DefaultAgendaPoint.AtWork,
-      DefaultAgendaPoint.MorningPages
+      DefaultAgendaPoint.AtWork
     );
   }
 }
