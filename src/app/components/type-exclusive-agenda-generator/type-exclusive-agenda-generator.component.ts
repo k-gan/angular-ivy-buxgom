@@ -12,6 +12,8 @@ import { AgendaModel } from '../agenda-generator/agenda-model';
 export class TypeExclusiveAgendaGeneratorComponent {
   Object = Object;
   model: AgendaModel;
+  agendaTypes: string[] = ['Default', 'Training', "Tomek's"];
+  aType: string = '';
 
   constructor(
     private agendaService: AgendaGenerationService,
