@@ -14,39 +14,18 @@
     <div class="form-input">
       <label class="form-label">Agenda Type:</label>
     </div>
-    <div class="form-check form-check-inline">
+    <div class="form-check form-check-inline" *ngFor="let aType of agendaTypes">
       <input
         class="form-check-input"
         type="radio"
         name="agenda-type"
-        id="default-agenda"
-        value="default-agenda"
+        id="{{ aType }}-agenda"
+        [value]="aType"
+        [(ngModel)]="aType"
       />
-      <label class="form-check-label" for="default-agenda"
-        >Default Agenda</label
+      <label class="form-check-label" for="{{ aType }}-agenda"
+        >{{ aType }} Agenda</label
       >
-    </div>
-    <div class="form-check form-check-inline">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="agenda-type"
-        id="training-agenda"
-        value="training-agenda"
-      />
-      <label class="form-check-label" for="training-agenda"
-        >Training Agenda</label
-      >
-    </div>
-    <div class="form-check form-check-inline">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="agenda-type"
-        id="tomek-agenda"
-        value="tomek-agenda"
-      />
-      <label class="form-check-label" for="tomek-agenda">Tomek's Agenda</label>
     </div>
   </div>
   <div class="form-check">
