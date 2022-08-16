@@ -1,5 +1,5 @@
 import { Time } from '@angular/common';
-import { HomeAgendaPoint } from './home-agenda-point';
+import { HomeAgendaPoint } from '../points/home-agenda-point';
 
 export class HomeAgendaElements {
   private readonly wrappedAgendaElements = new Map<HomeAgendaPoint, Time>();

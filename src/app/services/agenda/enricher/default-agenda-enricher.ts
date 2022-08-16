@@ -1,7 +1,7 @@
 import { DayPlanInput } from "../../day-plan-input";
 import { Agenda } from "../agenda";
-import { DefaultAgendaPoint } from "../default-agenda-point";
-import { HomeAgendaPoint } from "../home-agenda-point";
+import { DefaultAgendaPoint } from "../points/default-agenda-point";
+import { HomeAgendaPoint } from "../points/home-agenda-point";
 import { AgendaEnricher } from "./agenda-enricher";
 
 

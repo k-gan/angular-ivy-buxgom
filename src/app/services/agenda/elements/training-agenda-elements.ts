@@ -1,5 +1,5 @@
 import { Time } from '@angular/common';
-import { TrainingAgendaPoint } from './training-agenda-point.enum';
+import { TrainingAgendaPoint } from '../points/training-agenda-point.enum';
 
 export class TrainingAgendaElements {
   // TODO: this will need to be extended to provide overrides for start times

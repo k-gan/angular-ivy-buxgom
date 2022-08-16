@@ -3,8 +3,8 @@
 // to extract them from an agenda itself.
 
 import { Time } from '@angular/common';
-import { AgendaPoint } from './agenda-point';
-import { DefaultAgendaPoint } from './default-agenda-point';
+import { AgendaPoint } from '../points/agenda-point';
+import { DefaultAgendaPoint } from '../points/default-agenda-point';
 
 // In the future we might go with something agenda-specific, but for now this is the approach.
 export class DefaultAgendaElements {

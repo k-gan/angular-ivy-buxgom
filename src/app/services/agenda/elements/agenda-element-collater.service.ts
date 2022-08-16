@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { AgendaElement } from './agenda-element';
-import { AgendaPoint } from './agenda-point';
+import { AgendaPoint } from '../points/agenda-point';
 
 @Injectable({ providedIn: 'root' })
 export class AgendaElementCollaterService {

@@ -1,5 +1,5 @@
 import { Time } from "@angular/common";
-import { AgendaPoint } from "./agenda-point";
+import { AgendaPoint } from "../points/agenda-point";
 
 export interface AgendaConfiguration {
     get defaultAgendaPoints(): AgendaPoint[];

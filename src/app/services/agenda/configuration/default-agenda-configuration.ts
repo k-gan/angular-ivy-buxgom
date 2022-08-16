@@ -1,10 +1,10 @@
 import { Time } from "@angular/common";
-import { AgendaPoint } from "./agenda-point";
+import { AgendaPoint } from "../points/agenda-point";
 import { AgendaConfiguration } from "./agenda-configuration";
-import { DefaultAgendaElements } from "./default-agenda-elements";
-import { DefaultAgendaPoint } from "./default-agenda-point";
-import { HomeAgendaElements } from "./home-agenda-elements";
-import { HomeAgendaPoint } from "./home-agenda-point";
+import { DefaultAgendaElements } from "../elements/default-agenda-elements";
+import { DefaultAgendaPoint } from "../points/default-agenda-point";
+import { HomeAgendaElements } from "../elements/home-agenda-elements";
+import { HomeAgendaPoint } from "../points/home-agenda-point";
 
 
 export class DefaultAgendaConfiguration implements AgendaConfiguration {

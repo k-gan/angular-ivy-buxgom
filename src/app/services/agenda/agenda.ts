@@ -1,7 +1,7 @@
-import { AgendaConfiguration } from './agenda-configuration';
-import { AgendaElement } from './agenda-element';
-import { AgendaElementCollaterService } from './agenda-element-collater.service';
-import { AgendaPoint } from './agenda-point';
+import { AgendaConfiguration } from './configuration/agenda-configuration';
+import { AgendaElement } from './elements/agenda-element';
+import { AgendaElementCollaterService } from './elements/agenda-element-collater.service';
+import { AgendaPoint } from './points/agenda-point';
 import { MissingAgendaValidatorService } from './missing-agenda-validator.service';
 
 export class Agenda {

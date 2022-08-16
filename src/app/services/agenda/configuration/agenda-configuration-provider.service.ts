@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AgendaConfiguration } from './agenda-configuration';
-import { AgendaType } from './agenda-type';
+import { AgendaType } from '../agenda-type';
 import { DefaultAgendaConfiguration } from './default-agenda-configuration';
 import { TrainingAgendaConfiguration } from './training-agenda-configuration';
 
