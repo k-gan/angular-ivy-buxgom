@@ -4,6 +4,7 @@ import { DateTimeModifiers } from '../core/DateTimeModifiers';
 import { Agenda } from './agenda/agenda';
 import { AgendaElementCollaterService } from './agenda/agenda-element-collater.service';
 import { AgendaFactoryService } from './agenda/agenda-factory.service';
+import { AgendaPoint } from './agenda/agenda-point';
 import { AgendaType } from './agenda/agenda-type';
 import { DefaultAgendaElements } from './agenda/default-agenda-elements';
 import { DefaultAgendaPoint } from './agenda/default-agenda-point';
@@ -36,39 +37,33 @@ export class AgendaGenerationService {
     );
 
     if (input.running) {
-      const runningEl = this.agendaCollaterService.createAgendaElement(
-        HomeAgendaPoint.Running
-      );
-      agenda.addElementAfter(DefaultAgendaPoint.WakeUp, runningEl);
+      this.addToAgendaAfter(agenda, HomeAgendaPoint.Running, DefaultAgendaPoint.WakeUp);
     }
     if (input.morningPages) {
-      const morningPagesEl = this.agendaCollaterService.createAgendaElement(
-        DefaultAgendaPoint.MorningPages
-      );
-      agenda.addElementAfter(DefaultAgendaPoint.WakeUp, morningPagesEl);
+      this.addToAgendaAfter(agenda, DefaultAgendaPoint.MorningPages, DefaultAgendaPoint.WakeUp);
     }
     if (input.agendaType === AgendaType.Tomek) {
-      const elements = [
-        this.agendaCollaterService.createAgendaElement(
-          HomeAgendaPoint.DriveToOfficeFromTomeks
-        ),
-        this.agendaCollaterService.createAgendaElement(
-          HomeAgendaPoint.AtTomeks
-        ),
-        this.agendaCollaterService.createAgendaElement(
-          HomeAgendaPoint.DriveToTomeksFromHome
-        ),
-      ];
-      for (let el of elements) {
-        agenda.addElementAfter(DefaultAgendaPoint.BathroomTime, el);
-      }
-      agenda.removeElement(HomeAgendaPoint.DriveToOfficeFromHome);
+      this.generateTomekAgenda(agenda);
     }
 
     return this.finalizeAgenda(agenda, input.atOffice);
   }
 
-  generateTrainingAgenda(input: DayPlanInput): Agenda {
+  private generateTomekAgenda(agenda: Agenda) {
+    const elements = [
+        HomeAgendaPoint.DriveToOfficeFromTomeks,
+        HomeAgendaPoint.AtTomeks,
+        HomeAgendaPoint.DriveToTomeksFromHome
+      ,
+    ];
+    for (let point of elements) {
+      this.addToAgendaAfter(agenda, point, DefaultAgendaPoint.BathroomTime);
+    }
+
+    agenda.removeElement(HomeAgendaPoint.DriveToOfficeFromHome);
+  }
+
+  private generateTrainingAgenda(input: DayPlanInput): Agenda {
     const agenda: Agenda = this.agendaFactoryService.createTrainingAgenda(
       input.label
     );
@@ -77,13 +72,15 @@ export class AgendaGenerationService {
       console.log('Running is not possible when in training mode.');
     }
     if (input.morningPages) {
-      const morningPagesEl = this.agendaCollaterService.createAgendaElement(
-        DefaultAgendaPoint.MorningPages
-      );
-      agenda.addElementAfter(DefaultAgendaPoint.AtWork, morningPagesEl);
+      this.addToAgendaAfter(agenda, DefaultAgendaPoint.AtWork, DefaultAgendaPoint.WakeUp);
     }
 
     return this.finalizeAgenda(agenda, input.atOffice);
+  }
+
+  private addToAgendaAfter(agenda : Agenda, addPoint : AgendaPoint, afterPoint : AgendaPoint) : void {
+    const el = this.agendaCollaterService.createAgendaElement(addPoint);
+    agenda.addElementAfter(afterPoint, el);
   }
 
   private finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {
