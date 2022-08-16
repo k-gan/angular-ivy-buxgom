@@ -4,6 +4,7 @@ import { DateTimeModifiers } from '../core/DateTimeModifiers';
 import { Agenda } from './agenda/agenda';
 import { AgendaElementCollaterService } from './agenda/agenda-element-collater.service';
 import { AgendaFactoryService } from './agenda/agenda-factory.service';
+import { AgendaType } from './agenda/agenda-type';
 import { DefaultAgendaElements } from './agenda/default-agenda-elements';
 import { DefaultAgendaPoint } from './agenda/default-agenda-point';
 import { HomeAgendaElements } from './agenda/home-agenda-elements';
@@ -26,7 +27,7 @@ export class AgendaGenerationService {
   }
 
   generateAgenda(input: DayPlanInput): Agenda {
-    if (input.training) {
+    if (input.agendaType === AgendaType.Training) {
       return this.generateTrainingAgenda(input);
     }
 
@@ -46,7 +47,7 @@ export class AgendaGenerationService {
       );
       agenda.addElementAfter(DefaultAgendaPoint.WakeUp, morningPagesEl);
     }
-    if (input.tomeks) {
+    if (input.agendaType === AgendaType.Tomek) {
       const elements = [
         this.agendaCollaterService.createAgendaElement(
           HomeAgendaPoint.DriveToOfficeFromTomeks
@@ -68,6 +69,7 @@ export class AgendaGenerationService {
   }
 
   generateTrainingAgenda(input: DayPlanInput): Agenda {
+    console.log("gen train");
     const agenda: Agenda = this.agendaFactoryService.createTrainingAgenda(
       input.label
     );

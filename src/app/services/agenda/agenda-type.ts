@@ -1,3 +1,5 @@
 export enum AgendaType {
-    Default, Training, Tomek
+    Default = "Default",
+    Training = "Training",
+    Tomek = "Tomek"
 }

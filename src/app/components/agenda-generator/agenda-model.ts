@@ -15,8 +15,6 @@ export class AgendaModel {
     this.agendaInput = {
       label: 'Agenda',
       morningPages: false,
-      training: false,
-      tomeks: false,
       running: false,
       atOffice: atOfficeTimes[0],
       agendaType: AgendaType.Default

@@ -24,7 +24,6 @@ export class TypeExclusiveAgendaGeneratorComponent {
     this.model = new AgendaModel(atOfficeTimes);
 
     this.agendaTypes = this.getAllAgendaTypes();
-    this.model.agendaInput.agendaType = this.agendaTypes[0];
   }
 
   private getAllAgendaTypes()  : AgendaType[] {

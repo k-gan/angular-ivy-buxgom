@@ -5,8 +5,6 @@ export class DayPlanInput {
   label: string;
   morningPages: boolean;
   agendaType: AgendaType;
-  training: boolean;
-  tomeks: boolean;
   running: boolean;
   atOffice: Time;
 }
