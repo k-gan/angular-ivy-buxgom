@@ -28,10 +28,24 @@ export class AgendaGenerationService {
   }
 
   generateAgenda(input: DayPlanInput): Agenda {
+    const agenda : Agenda = this.generateSpecificAgenda(input);
+    return this.finalizeAgenda(agenda, input.atOffice);
+  }
+
+  private generateSpecificAgenda(input : DayPlanInput) : Agenda {
     if (input.agendaType === AgendaType.Training) {
       return this.generateTrainingAgenda(input);
+    } 
+    
+    const agenda = this.generateDefaultAgenda(input);
+    if (input.agendaType === AgendaType.Tomek) {
+      return this.enrichWithTomek(agenda);
     }
 
+    return agenda;
+  }
+
+  private generateDefaultAgenda(input : DayPlanInput) : Agenda {
     const agenda: Agenda = this.agendaFactoryService.createDefaultAgenda(
       input.label
     );
@@ -42,14 +56,11 @@ export class AgendaGenerationService {
     if (input.morningPages) {
       this.addToAgendaAfter(agenda, DefaultAgendaPoint.MorningPages, DefaultAgendaPoint.WakeUp);
     }
-    if (input.agendaType === AgendaType.Tomek) {
-      this.generateTomekAgenda(agenda);
-    }
 
-    return this.finalizeAgenda(agenda, input.atOffice);
+    return agenda;
   }
 
-  private generateTomekAgenda(agenda: Agenda) {
+  private enrichWithTomek(agenda: Agenda) : Agenda {
     const elements = [
         HomeAgendaPoint.DriveToOfficeFromTomeks,
         HomeAgendaPoint.AtTomeks,
@@ -61,6 +72,8 @@ export class AgendaGenerationService {
     }
 
     agenda.removeElement(HomeAgendaPoint.DriveToOfficeFromHome);
+
+    return agenda;
   }
 
   private generateTrainingAgenda(input: DayPlanInput): Agenda {
