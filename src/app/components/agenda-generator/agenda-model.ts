@@ -1,12 +1,12 @@
 import { Time } from '@angular/common';
 import { AgendaType } from 'src/app/services/agenda/agenda-type';
-import { DayPlanInput } from '../../services/day-plan-input';
+import { AgendaInput } from '../../services/agenda-input';
 
 export class AgendaModel {
-  agendaInput: DayPlanInput;
+  agendaInput: AgendaInput;
   atOfficeId: number = 0;
 
-  get upToDateAgendaInput(): DayPlanInput {
+  get upToDateAgendaInput(): AgendaInput {
     this.agendaInput.atOffice = this.atOfficeTimes[this.atOfficeId];
     return this.agendaInput;
   }

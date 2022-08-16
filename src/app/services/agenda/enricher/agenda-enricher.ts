@@ -1,8 +1,8 @@
-import { DayPlanInput } from "../../day-plan-input";
+import { AgendaInput } from "../../agenda-input";
 import { Agenda } from "../agenda";
 
 export interface AgendaEnricher
 {
-    enrichAgenda(agenda : Agenda, input : DayPlanInput) : Agenda;
+    enrichAgenda(agenda : Agenda, input : AgendaInput) : Agenda;
 }
 

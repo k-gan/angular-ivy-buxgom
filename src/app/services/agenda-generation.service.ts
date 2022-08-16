@@ -5,7 +5,7 @@ import { Agenda } from './agenda/agenda';
 import { AgendaEnricherProviderService } from "./agenda/enricher/agenda-enricher-provider.service";
 import { AgendaFactoryService } from './agenda/agenda-factory.service';
 import { TrainingAgendaPoint } from './agenda/points/training-agenda-point.enum';
-import { DayPlanInput } from './day-plan-input';
+import { AgendaInput } from './agenda-input';
 
 @Injectable({ providedIn: 'root' })
 export class AgendaGenerationService {
@@ -15,7 +15,7 @@ export class AgendaGenerationService {
   ) {
   }
 
-  generateAgenda(input: DayPlanInput): Agenda {
+  generateAgenda(input: AgendaInput): Agenda {
     const agenda : Agenda = this.agendaFactoryService.createAgenda(input.agendaType, input.label);
     const enricher = this.agendaEnricherProvider.getEnricher(input.agendaType);
     const enrichedAgenda : Agenda = enricher.enrichAgenda(agenda, input);

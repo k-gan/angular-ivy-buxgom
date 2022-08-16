@@ -1,4 +1,4 @@
-import { DayPlanInput } from "../../day-plan-input";
+import { AgendaInput } from "../../agenda-input";
 import { Agenda } from "../agenda";
 import { DefaultAgendaPoint } from "../points/default-agenda-point";
 import { DefaultAgendaEnricher } from "./default-agenda-enricher";
@@ -10,7 +10,7 @@ export class TomekAgendaEnricher implements AgendaEnricher {
     constructor(private defaultAgendaEnricher: DefaultAgendaEnricher) {
     }
 
-    enrichAgenda(agenda: Agenda, input: DayPlanInput): Agenda {
+    enrichAgenda(agenda: Agenda, input: AgendaInput): Agenda {
         agenda = this.defaultAgendaEnricher.enrichAgenda(agenda, input);
 
         const elements = [
