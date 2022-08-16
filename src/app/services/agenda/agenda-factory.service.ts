@@ -1,29 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Agenda } from './agenda';
-import { AgendaElementCollaterService } from './agenda-element-collater.service';
-import { DefaultAgenda } from './default-agenda';
+import { AgendaConfigurationProviderService } from './configuration/agenda-configuration-provider.service';
+import { AgendaType } from './agenda-type';
 import { MissingAgendaValidatorService } from './missing-agenda-validator.service';
-import { TrainingAgenda } from './training-agenda';
 
 @Injectable({ providedIn: 'root' })
 export class AgendaFactoryService {
   constructor(
     private readonly missingAgendaValidator: MissingAgendaValidatorService,
-    private readonly agendaElementCollaterService: AgendaElementCollaterService
+    private readonly agendaConfigurationProvider: AgendaConfigurationProviderService
   ) {}
 
-  createDefaultAgenda(name?: string): Agenda {
-    return new DefaultAgenda(
+  createAgenda(type: AgendaType, name? : string) {
+    return new Agenda(
       this.missingAgendaValidator,
-      this.agendaElementCollaterService,
-      name
-    );
-  }
-
-  createTrainingAgenda(name?: string): Agenda {
-    return new TrainingAgenda(
-      this.missingAgendaValidator,
-      this.agendaElementCollaterService,
+      this.agendaConfigurationProvider.getConfiguration(type),
       name
     );
   }

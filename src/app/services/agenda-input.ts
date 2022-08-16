@@ -1,7 +1,7 @@
 import { Time } from '@angular/common';
 import { AgendaType } from './agenda/agenda-type';
 
-export class DayPlanInput {
+export class AgendaInput {
   label: string;
   morningPages: boolean;
   agendaType: AgendaType;

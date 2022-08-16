@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { DateTimeModifiers } from '../../core/DateTimeModifiers';
 import { AgendaSynchronizeService } from '../../services/agenda-synchronize.service';
 import { Agenda } from '../../services/agenda/agenda';
-import { AgendaElement } from '../../services/agenda/agenda-element';
-import { AgendaPoint } from '../../services/agenda/agenda-point';
-import { DefaultAgendaPoint } from '../../services/agenda/default-agenda-point';
+import { AgendaElement } from '../../services/agenda/elements/agenda-element';
+import { AgendaPoint } from '../../services/agenda/points/agenda-point';
+import { DefaultAgendaPoint } from '../../services/agenda/points/default-agenda-point';
 import { DayPlan } from '../../services/day-plan';
 
 @Component({
