@@ -6,7 +6,7 @@ import { AgendaModel } from './agenda-model';
 import { AgendaType } from '../../services/agenda/agenda-type';
 
 @Component({
-  selector: 'app-type-exclusive-agenda-generator',
+  selector: 'app-agenda-generator',
   templateUrl: './agenda-generator.component.html',
   styleUrls: ['./agenda-generator.component.css'],
 })
