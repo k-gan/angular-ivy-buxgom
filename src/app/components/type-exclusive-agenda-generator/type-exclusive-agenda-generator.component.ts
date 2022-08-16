@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AgendaGenerationService } from '../../services/agenda-generation.service';
 import { AgendaSynchronizeService } from '../../services/agenda-synchronize.service';
 import { AtOfficeTimesProviderService } from '../../services/at-office-times-provider.service';
-import { AgendaModel } from '../agenda-generator/agenda-model';
+import { AgendaModel } from './agenda-model';
 import { AgendaType } from '../../services/agenda/agenda-type';
 
 @Component({

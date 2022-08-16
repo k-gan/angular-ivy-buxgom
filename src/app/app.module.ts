@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { DayPlanCalendarComponent } from './components/day-plan-calendar/day-plan-calendar.component';
-import { AgendaGeneratorComponent } from './components/agenda-generator/agenda-generator.component';
 import { TypeExclusiveAgendaGeneratorComponent } from './components/type-exclusive-agenda-generator/type-exclusive-agenda-generator.component';
 
 @NgModule({
@@ -12,7 +11,6 @@ import { TypeExclusiveAgendaGeneratorComponent } from './components/type-exclusi
   declarations: [
     AppComponent,
     DayPlanCalendarComponent,
-    AgendaGeneratorComponent,
     TypeExclusiveAgendaGeneratorComponent,
   ],
   bootstrap: [AppComponent],
