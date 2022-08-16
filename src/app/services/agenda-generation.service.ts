@@ -28,28 +28,26 @@ export class AgendaGenerationService {
   }
 
   generateAgenda(input: DayPlanInput): Agenda {
-    const agenda : Agenda = this.generateSpecificAgenda(input);
-    return this.finalizeAgenda(agenda, input.atOffice);
+    const agenda : Agenda = this.agendaFactoryService.createAgenda(input.agendaType, input.label);
+
+    const enrichedAgenda : Agenda = this.enrichAgenda(agenda, input);
+    return this.finalizeAgenda(enrichedAgenda, input.atOffice);
   }
 
-  private generateSpecificAgenda(input : DayPlanInput) : Agenda {
+  private enrichAgenda(agenda : Agenda, input : DayPlanInput) : Agenda {
     if (input.agendaType === AgendaType.Training) {
-      return this.generateTrainingAgenda(input);
+      return this.enrichTrainingAgenda(agenda, input);
     } 
     
-    const agenda = this.generateDefaultAgenda(input);
+    const enrichedAgenda = this.enrichDefaultAgenda(agenda, input);
     if (input.agendaType === AgendaType.Tomek) {
-      return this.enrichWithTomek(agenda);
+      return this.enrichWithTomek(enrichedAgenda);
     }
 
-    return agenda;
+    return enrichedAgenda;
   }
 
-  private generateDefaultAgenda(input : DayPlanInput) : Agenda {
-    const agenda: Agenda = this.agendaFactoryService.createDefaultAgenda(
-      input.label
-    );
-
+  private enrichDefaultAgenda(agenda : Agenda, input : DayPlanInput) : Agenda {
     if (input.running) {
       this.addToAgendaAfter(agenda, HomeAgendaPoint.Running, DefaultAgendaPoint.WakeUp);
     }
@@ -72,20 +70,15 @@ export class AgendaGenerationService {
     }
 
     agenda.removeElement(HomeAgendaPoint.DriveToOfficeFromHome);
-
     return agenda;
   }
 
-  private generateTrainingAgenda(input: DayPlanInput): Agenda {
-    const agenda: Agenda = this.agendaFactoryService.createTrainingAgenda(
-      input.label
-    );
-
+  private enrichTrainingAgenda(agenda : Agenda, input: DayPlanInput): Agenda {
     if (input.running) {
       console.log('Running is not possible when in training mode.');
     }
     if (input.morningPages) {
-      this.addToAgendaAfter(agenda, DefaultAgendaPoint.AtWork, DefaultAgendaPoint.WakeUp);
+      this.addToAgendaAfter(agenda, DefaultAgendaPoint.MorningPages, DefaultAgendaPoint.AtWork);
     }
 
     return this.finalizeAgenda(agenda, input.atOffice);
