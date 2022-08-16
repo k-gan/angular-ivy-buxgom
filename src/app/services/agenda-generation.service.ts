@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { DateTimeModifiers } from '../core/DateTimeModifiers';
 import { Agenda } from './agenda/agenda';
 import { AgendaElementCollaterService } from './agenda/agenda-element-collater.service';
+import { AgendaEnricher } from './agenda/enricher/agenda-enricher';
+import { AgendaEnricherProviderService } from "./agenda/enricher/agenda-enricher-provider.service";
 import { AgendaFactoryService } from './agenda/agenda-factory.service';
 import { AgendaPoint } from './agenda/agenda-point';
 import { AgendaType } from './agenda/agenda-type';
@@ -17,76 +19,15 @@ import { DayPlanInput } from './day-plan-input';
 export class AgendaGenerationService {
   constructor(
     private readonly agendaFactoryService: AgendaFactoryService,
-    private readonly agendaCollaterService: AgendaElementCollaterService
+    private readonly agendaEnricherProvider : AgendaEnricherProviderService
   ) {
-    agendaCollaterService.registerAgendaElements(
-      new DefaultAgendaElements().agendaElements
-    );
-    agendaCollaterService.registerAgendaElements(
-      new HomeAgendaElements().agendaElements
-    );
   }
 
   generateAgenda(input: DayPlanInput): Agenda {
     const agenda : Agenda = this.agendaFactoryService.createAgenda(input.agendaType, input.label);
-
-    const enrichedAgenda : Agenda = this.enrichAgenda(agenda, input);
+    const enricher = this.agendaEnricherProvider.getEnricher(input.agendaType);
+    const enrichedAgenda : Agenda = enricher.enrichAgenda(agenda, input);
     return this.finalizeAgenda(enrichedAgenda, input.atOffice);
-  }
-
-  private enrichAgenda(agenda : Agenda, input : DayPlanInput) : Agenda {
-    if (input.agendaType === AgendaType.Training) {
-      return this.enrichTrainingAgenda(agenda, input);
-    } 
-    
-    const enrichedAgenda = this.enrichDefaultAgenda(agenda, input);
-    if (input.agendaType === AgendaType.Tomek) {
-      return this.enrichWithTomek(enrichedAgenda);
-    }
-
-    return enrichedAgenda;
-  }
-
-  private enrichDefaultAgenda(agenda : Agenda, input : DayPlanInput) : Agenda {
-    if (input.running) {
-      this.addToAgendaAfter(agenda, HomeAgendaPoint.Running, DefaultAgendaPoint.WakeUp);
-    }
-    if (input.morningPages) {
-      this.addToAgendaAfter(agenda, DefaultAgendaPoint.MorningPages, DefaultAgendaPoint.WakeUp);
-    }
-
-    return agenda;
-  }
-
-  private enrichWithTomek(agenda: Agenda) : Agenda {
-    const elements = [
-        HomeAgendaPoint.DriveToOfficeFromTomeks,
-        HomeAgendaPoint.AtTomeks,
-        HomeAgendaPoint.DriveToTomeksFromHome
-      ,
-    ];
-    for (let point of elements) {
-      this.addToAgendaAfter(agenda, point, DefaultAgendaPoint.BathroomTime);
-    }
-
-    agenda.removeElement(HomeAgendaPoint.DriveToOfficeFromHome);
-    return agenda;
-  }
-
-  private enrichTrainingAgenda(agenda : Agenda, input: DayPlanInput): Agenda {
-    if (input.running) {
-      console.log('Running is not possible when in training mode.');
-    }
-    if (input.morningPages) {
-      this.addToAgendaAfter(agenda, DefaultAgendaPoint.MorningPages, DefaultAgendaPoint.AtWork);
-    }
-
-    return this.finalizeAgenda(agenda, input.atOffice);
-  }
-
-  private addToAgendaAfter(agenda : Agenda, addPoint : AgendaPoint, afterPoint : AgendaPoint) : void {
-    const el = this.agendaCollaterService.createAgendaElement(addPoint);
-    agenda.addElementAfter(afterPoint, el);
   }
 
   private finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {

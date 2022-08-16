@@ -21,7 +21,13 @@ export class Agenda {
     this.validateAgenda();
   }
 
-  addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
+  addPointAfter(after: AgendaPoint, point: AgendaPoint)
+  {
+    const el = this.agendaElementCollater.createAgendaElement(point);
+    this.addElementAfter(after, el);
+  }
+
+  private addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
     const idx = this.agendaElements.findIndex(
       (el) => el.agenda === pointOnAgenda
     );
@@ -34,7 +40,7 @@ export class Agenda {
     );
     this.agendaElements.splice(idx, 1);
   }
-  
+
   private registerAgendaElements() : void {
     this.agendaElementCollater.registerAgendaElements(this.agendaConfiguration.availableAgendaPoints)
   }
