@@ -69,7 +69,6 @@ export class AgendaGenerationService {
   }
 
   generateTrainingAgenda(input: DayPlanInput): Agenda {
-    console.log("gen train");
     const agenda: Agenda = this.agendaFactoryService.createTrainingAgenda(
       input.label
     );

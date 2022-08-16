@@ -7,10 +7,10 @@ import { AgendaType } from '../../services/agenda/agenda-type';
 
 @Component({
   selector: 'app-type-exclusive-agenda-generator',
-  templateUrl: './type-exclusive-agenda-generator.component.html',
-  styleUrls: ['./type-exclusive-agenda-generator.component.css'],
+  templateUrl: './agenda-generator.component.html',
+  styleUrls: ['./agenda-generator.component.css'],
 })
-export class TypeExclusiveAgendaGeneratorComponent {
+export class AgendaGeneratorComponent {
   Object = Object;
   model: AgendaModel;
   readonly agendaTypes: AgendaType[];
