@@ -1,6 +1,5 @@
 import { AgendaConfiguration } from './configuration/agenda-configuration';
 import { AgendaElement } from './elements/agenda-element';
-import { AgendaElementCollaterService } from './elements/agenda-element-collater.service';
 import { AgendaPoint } from './points/agenda-point';
 import { MissingAgendaValidatorService } from './missing-agenda-validator.service';
 
@@ -10,28 +9,19 @@ export class Agenda {
 
   constructor(
     private readonly missingAgendaValidator: MissingAgendaValidatorService,
-    protected readonly agendaElementCollater: AgendaElementCollaterService,
     protected readonly agendaConfiguration: AgendaConfiguration,
     name?: string
   ) {
     this.name = name ?? 'Agenda';
 
-    this.registerAgendaElements();
     this.initializeAgenda();
     this.validateAgenda();
   }
 
-  addPointAfter(after: AgendaPoint, point: AgendaPoint)
+  addPointAfter(point: AgendaPoint, after: AgendaPoint)
   {
-    const el = this.agendaElementCollater.createAgendaElement(point);
+    const el = this.createAgendaElement(point);
     this.addElementAfter(after, el);
-  }
-
-  private addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
-    const idx = this.agendaElements.findIndex(
-      (el) => el.agenda === pointOnAgenda
-    );
-    this.agendaElements.splice(idx + 1, 0, element);
   }
 
   removeElement(pointOnAgenda: AgendaPoint): void {
@@ -41,8 +31,18 @@ export class Agenda {
     this.agendaElements.splice(idx, 1);
   }
 
-  private registerAgendaElements() : void {
-    this.agendaElementCollater.registerAgendaElements(this.agendaConfiguration.availableAgendaPoints)
+  private addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
+    const idx = this.agendaElements.findIndex(
+      (el) => el.agenda === pointOnAgenda
+    );
+    this.agendaElements.splice(idx + 1, 0, element);
+  }
+
+  private createAgendaElement(agendaPoint: AgendaPoint): AgendaElement {
+    return new AgendaElement(
+      agendaPoint,
+      this.agendaConfiguration.availableAgendaPoints.get(agendaPoint)
+    );
   }
 
   private validateAgenda(): void {
@@ -55,7 +55,7 @@ export class Agenda {
   private initializeAgenda(): void {
     const agenda: Array<AgendaElement> = [];
     for (let agendaPoint of this.agendaConfiguration.defaultAgendaPoints) {
-      const agEl = this.agendaElementCollater.createAgendaElement(agendaPoint);
+      const agEl = this.createAgendaElement(agendaPoint);
       agenda.push(agEl);
     }
     this.agendaElements = agenda;

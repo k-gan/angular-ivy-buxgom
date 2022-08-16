@@ -2,16 +2,8 @@ import { Time } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { DateTimeModifiers } from '../core/DateTimeModifiers';
 import { Agenda } from './agenda/agenda';
-import { AgendaElementCollaterService } from './agenda/elements/agenda-element-collater.service';
-import { AgendaEnricher } from './agenda/enricher/agenda-enricher';
 import { AgendaEnricherProviderService } from "./agenda/enricher/agenda-enricher-provider.service";
 import { AgendaFactoryService } from './agenda/agenda-factory.service';
-import { AgendaPoint } from './agenda/points/agenda-point';
-import { AgendaType } from './agenda/agenda-type';
-import { DefaultAgendaElements } from './agenda/elements/default-agenda-elements';
-import { DefaultAgendaPoint } from './agenda/points/default-agenda-point';
-import { HomeAgendaElements } from './agenda/elements/home-agenda-elements';
-import { HomeAgendaPoint } from './agenda/points/home-agenda-point';
 import { TrainingAgendaPoint } from './agenda/points/training-agenda-point.enum';
 import { DayPlanInput } from './day-plan-input';
 
