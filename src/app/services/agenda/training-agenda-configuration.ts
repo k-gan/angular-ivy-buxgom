@@ -7,7 +7,7 @@ import { TrainingAgendaPoint } from "./training-agenda-point.enum";
 import { TrainingAgendaElements } from "./training-agenda-elements";
 
 
-export class HomeAgendaConfiguration implements AgendaConfiguration {
+export class TrainingAgendaConfiguration implements AgendaConfiguration {
     get availableAgendaPoints(): Map<AgendaPoint, Time> {
         return new Map<AgendaPoint, Time>([...new DefaultAgendaElements().agendaElements, ...new TrainingAgendaElements().agendaElements]);
     }
