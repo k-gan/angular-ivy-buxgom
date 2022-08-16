@@ -13,7 +13,7 @@ export class TypeExclusiveAgendaGeneratorComponent {
   Object = Object;
   model: AgendaModel;
   agendaTypes: string[] = ['Default', 'Training', "Tomek's"];
-  aType: string = '';
+  agendaType: string = '';
 
   constructor(
     private agendaService: AgendaGenerationService,
@@ -22,6 +22,7 @@ export class TypeExclusiveAgendaGeneratorComponent {
   ) {
     const atOfficeTimes = atOfficeTimeService.generateAtOfficeSelection();
     this.model = new AgendaModel(atOfficeTimes);
+    this.agendaType = this.agendaTypes[0];
   }
 
   onSubmit() {

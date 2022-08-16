@@ -20,9 +20,9 @@
         type="radio"
         name="agenda-type"
         [value]="aType"
+        [(ngModel)]="agendaType"
         id="{{ aType }}-agenda"
       />
-      <!-- Probably need [(ngModel)]="aType" -->
       <label class="form-check-label" for="{{ aType }}-agenda"
         >{{ aType }} Agenda</label
       >
