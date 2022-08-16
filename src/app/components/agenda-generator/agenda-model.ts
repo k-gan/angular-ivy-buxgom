@@ -1,4 +1,5 @@
 import { Time } from '@angular/common';
+import { AgendaType } from 'src/app/services/agenda/agenda-type';
 import { DayPlanInput } from '../../services/day-plan-input';
 
 export class AgendaModel {
@@ -14,10 +15,9 @@ export class AgendaModel {
     this.agendaInput = {
       label: 'Agenda',
       morningPages: false,
-      training: false,
-      tomeks: false,
       running: false,
       atOffice: atOfficeTimes[0],
+      agendaType: AgendaType.Default
     };
   }
 }

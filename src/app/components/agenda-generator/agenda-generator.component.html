@@ -10,27 +10,23 @@
       name="label"
     />
   </div>
-  <div class="form-check">
-    <input
-      type="checkbox"
-      id="training"
-      class="form-check-input"
-      required
-      [(ngModel)]="model.agendaInput.training"
-      name="training"
-    />
-    <label for="training" class="form-check-label">Training</label>
-  </div>
-  <div class="form-check">
-    <input
-      type="checkbox"
-      id="tomeks"
-      class="form-check-input"
-      required
-      [(ngModel)]="model.agendaInput.tomeks"
-      name="tomeks"
-    />
-    <label for="tomeks" class="form-check-label">Tomek's</label>
+  <div class="mb-3">
+    <div class="form-input">
+      <label class="form-label">Agenda Type:</label>
+    </div>
+    <div class="form-check form-check-inline" *ngFor="let aType of agendaTypes">
+      <input
+        class="form-check-input"
+        type="radio"
+        name="agenda-type"
+        [value]="aType"
+        [(ngModel)]="model.agendaInput.agendaType"
+        id="{{ aType }}-agenda"
+      />
+      <label class="form-check-label" for="{{ aType }}-agenda"
+        >{{ aType }} Agenda</label
+      >
+    </div>
   </div>
   <div class="form-check">
     <input
