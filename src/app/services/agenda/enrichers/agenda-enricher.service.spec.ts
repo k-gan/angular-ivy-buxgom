@@ -1,17 +1,17 @@
 import { AgendaType } from "../agenda-type";
-import { AgendaEnricherProviderService } from "./agenda-enricher-provider.service";
+import { AgendaEnricherService } from "./agenda-enricher.service";
 import { DefaultAgendaEnricher } from "./default-agenda-enricher";
 import { TomekAgendaEnricher } from "./tomek-agenda-enricher";
 import { TrainingAgendaEnricher } from "./training-agenda-enricher";
 
-describe('AgendaEnricherProvder', () => {
+describe('AgendaEnricherService', () => {
     const enricherMap : Map<AgendaType, string> = new Map<AgendaType, string>([
         [AgendaType.Default, DefaultAgendaEnricher.name],
         [AgendaType.Tomek, TomekAgendaEnricher.name],
         [AgendaType.Training, TrainingAgendaEnricher.name],
     ]);
 
-    const provider = new AgendaEnricherProviderService();
+    const provider = new AgendaEnricherService();
 
     for(let map of enricherMap) {
         const agendaType = map[0];

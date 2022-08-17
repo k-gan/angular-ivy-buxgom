@@ -2,7 +2,7 @@ import { Time } from '@angular/common';
 import { Injectable } from '@angular/core';
 import { DateTimeModifiers } from '../core/DateTimeModifiers';
 import { Agenda } from './agenda/agenda';
-import { AgendaEnricherProviderService } from "./agenda/enrichers/agenda-enricher-provider.service";
+import { AgendaEnricherService } from "./agenda/enrichers/agenda-enricher.service";
 import { AgendaFactoryService } from './agenda/agenda-factory.service';
 import { TrainingAgendaPoint } from './agenda/points/training-agenda-point.enum';
 import { AgendaInput } from './agenda-input';
@@ -11,7 +11,7 @@ import { AgendaInput } from './agenda-input';
 export class AgendaGenerationService {
   constructor(
     private readonly agendaFactoryService: AgendaFactoryService,
-    private readonly agendaEnricherProvider : AgendaEnricherProviderService
+    private readonly agendaEnricherProvider : AgendaEnricherService
   ) {
   }
 

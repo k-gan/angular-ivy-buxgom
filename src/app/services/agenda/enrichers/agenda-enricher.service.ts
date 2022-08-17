@@ -6,7 +6,7 @@ import { TrainingAgendaEnricher } from "./training-agenda-enricher";
 
 
 @Injectable({ providedIn: "root" })
-export class AgendaEnricherProviderService {
+export class AgendaEnricherService {
     getEnricher(agendaType: AgendaType) {
         switch (agendaType) {
             case AgendaType.Default:

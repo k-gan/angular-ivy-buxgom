@@ -7,7 +7,7 @@ import { TrainingAgendaConfiguration } from './training-agenda-configuration';
 @Injectable({
   providedIn: 'root'
 })
-export class AgendaConfigurationProviderService {
+export class AgendaConfigurationService {
   private readonly agendaConfigMap : Map<AgendaType, AgendaConfiguration>;
 
   constructor() {
