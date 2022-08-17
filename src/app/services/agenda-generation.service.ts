@@ -24,7 +24,7 @@ export class AgendaGenerationService {
 
   private finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {
     let startTime = atOffice;
-    for (let agendaElement of [...agenda.agendaElements].reverse()) {
+    for (let agendaElement of agenda.agendaElements.reverse()) {
       startTime = DateTimeModifiers.decreaseTime(
         startTime,
         agendaElement.duration
