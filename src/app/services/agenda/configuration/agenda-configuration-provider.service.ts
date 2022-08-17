@@ -19,8 +19,6 @@ export class AgendaConfigurationProviderService {
   }
 
   getConfiguration(agendaType : AgendaType) : AgendaConfiguration {
-    console.log(agendaType);
-    console.log(this.agendaConfigMap.get(agendaType));
     return this.agendaConfigMap.get(agendaType);
   }
 }
