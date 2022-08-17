@@ -6,10 +6,7 @@ import { MissingAgendaValidatorService } from './missing-agenda-validator.servic
 export class Agenda {
   readonly name: string;
 
-  private agendaElementsWrapped: Array<AgendaElement>;
-  public get agendaElements() : Array<AgendaElement> {
-    return this.agendaElementsWrapped.slice();
-  }
+  agendaElements: Array<AgendaElement>;
 
   constructor(
     private readonly missingAgendaValidator: MissingAgendaValidatorService,
@@ -29,17 +26,17 @@ export class Agenda {
   }
 
   removeElement(pointOnAgenda: AgendaPoint): void {
-    const idx = this.agendaElementsWrapped.findIndex(
+    const idx = this.agendaElements.findIndex(
       (el) => el.agenda === pointOnAgenda
     );
-    this.agendaElementsWrapped.splice(idx, 1);
+    this.agendaElements.splice(idx, 1);
   }
 
   private addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
-    const idx = this.agendaElementsWrapped.findIndex(
+    const idx = this.agendaElements.findIndex(
       (el) => el.agenda === pointOnAgenda
     );
-    this.agendaElementsWrapped.splice(idx + 1, 0, element);
+    this.agendaElements.splice(idx + 1, 0, element);
   }
 
   private createAgendaElement(agendaPoint: AgendaPoint): AgendaElement {
@@ -52,7 +49,7 @@ export class Agenda {
   private validateAgenda(): void {
     this.missingAgendaValidator.validateAgenda(
       this.agendaConfiguration.validationPointTypes,
-      this.agendaElementsWrapped
+      this.agendaElements
     );
   }
 
@@ -62,6 +59,6 @@ export class Agenda {
       const agEl = this.createAgendaElement(agendaPoint);
       agenda.push(agEl);
     }
-    this.agendaElementsWrapped = agenda;
+    this.agendaElements = agenda;
   }
 }

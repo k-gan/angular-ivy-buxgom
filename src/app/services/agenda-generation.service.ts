@@ -22,9 +22,9 @@ export class AgendaGenerationService {
     return this.finalizeAgenda(enrichedAgenda, input.atOffice);
   }
 
-  private finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {
+  finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {
     let startTime = atOffice;
-    for (let agendaElement of agenda.agendaElements.reverse()) {
+    for (let agendaElement of agenda.agendaElements.slice().reverse()) {
       startTime = DateTimeModifiers.decreaseTime(
         startTime,
         agendaElement.duration

@@ -64,5 +64,12 @@
         </details>
       </td>
     </tr>
+    <tr>
+      <td></td>
+      <td *ngFor="let dayPlan of dayPlans">
+        <app-drag-and-drop-agenda-view [agenda]="dayPlan.agenda">
+        </app-drag-and-drop-agenda-view>
+      </td>
+    </tr>
   </tbody>
 </table>
