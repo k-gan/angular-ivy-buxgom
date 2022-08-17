@@ -19,8 +19,6 @@ describe("AgendaConfigurationProviderService", () => {
         const actualConfig = provider.getConfiguration(agendaType);
         const actualConfigType = actualConfig.constructor.name;
 
-        console.log(actualConfigType);
-
         it(`For ${ agendaType } agenda type, config type is expected to be ${ expectedConfigType }.`, () => {
             expect(actualConfigType).toBe(expectedConfigType);
         });
