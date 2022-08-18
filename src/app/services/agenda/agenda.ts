@@ -1,7 +1,6 @@
 import { moveItemInArray } from "@angular/cdk/drag-drop";
 import { AgendaConfiguration } from "./configuration/agenda-configuration";
 import { AgendaElement } from "./elements/agenda-element";
-import { MissingAgendaValidatorService } from "./missing-agenda-validator.service";
 import { AgendaPoint } from "./points/agenda-point";
 
 export class Agenda {
@@ -13,14 +12,12 @@ export class Agenda {
   }
 
   constructor(
-    private readonly missingAgendaValidator: MissingAgendaValidatorService,
     protected readonly agendaConfiguration: AgendaConfiguration,
     name?: string
   ) {
     this.name = name ?? "Agenda";
 
     this.initializeAgenda();
-    this.validateAgenda();
   }
 
   addPointAfter(point: AgendaPoint, after: AgendaPoint) {
@@ -53,13 +50,6 @@ export class Agenda {
     return new AgendaElement(
       agendaPoint,
       this.agendaConfiguration.availableAgendaPoints.get(agendaPoint)
-    );
-  }
-
-  private validateAgenda(): void {
-    this.missingAgendaValidator.validateAgenda(
-      this.agendaConfiguration.validationPointTypes,
-      this.agendaElementsWrapped
     );
   }
 
