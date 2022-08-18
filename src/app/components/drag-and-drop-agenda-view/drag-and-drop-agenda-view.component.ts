@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
 import { Time } from "@angular/common";
 import { Component, Input, OnInit } from "@angular/core";
 import { DateTimeModifiers } from "src/app/core/DateTimeModifiers";
@@ -29,14 +29,11 @@ export class DragAndDropAgendaViewComponent implements OnInit {
   ngOnInit() {}
 
   drop(event: CdkDragDrop<AgendaElement[]>) {
-    moveItemInArray(
-      this.agenda.agendaElements,
-      event.previousIndex,
-      event.currentIndex
+    this.agenda.moveElement(event.previousIndex, event.currentIndex);
+
+    const atOffice: Time = this.dayPlan.getStartTime(
+      DefaultAgendaPoint.AtOffice
     );
-    const atOffice: Time = this.agenda.agendaElements.find(
-      (e) => e.agenda === DefaultAgendaPoint.AtOffice
-    ).startTime;
 
     this.agendaGeneration.finalizeAgenda(this.agenda, atOffice);
     this.dayPlan.generateFromAgenda();

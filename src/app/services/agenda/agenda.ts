@@ -1,42 +1,52 @@
-import { AgendaConfiguration } from './configuration/agenda-configuration';
-import { AgendaElement } from './elements/agenda-element';
-import { AgendaPoint } from './points/agenda-point';
-import { MissingAgendaValidatorService } from './missing-agenda-validator.service';
+import { moveItemInArray } from "@angular/cdk/drag-drop";
+import { AgendaConfiguration } from "./configuration/agenda-configuration";
+import { AgendaElement } from "./elements/agenda-element";
+import { MissingAgendaValidatorService } from "./missing-agenda-validator.service";
+import { AgendaPoint } from "./points/agenda-point";
 
 export class Agenda {
   readonly name: string;
 
-  agendaElements: Array<AgendaElement>;
+  private agendaElementsWrapped: Array<AgendaElement>;
+  get agendaElements(): Array<AgendaElement> {
+    return this.agendaElementsWrapped.slice();
+  }
 
   constructor(
     private readonly missingAgendaValidator: MissingAgendaValidatorService,
     protected readonly agendaConfiguration: AgendaConfiguration,
     name?: string
   ) {
-    this.name = name ?? 'Agenda';
+    this.name = name ?? "Agenda";
 
     this.initializeAgenda();
     this.validateAgenda();
   }
 
-  addPointAfter(point: AgendaPoint, after: AgendaPoint)
-  {
+  addPointAfter(point: AgendaPoint, after: AgendaPoint) {
     const el = this.createAgendaElement(point);
     this.addElementAfter(after, el);
   }
 
   removeElement(pointOnAgenda: AgendaPoint): void {
-    const idx = this.agendaElements.findIndex(
+    const idx = this.agendaElementsWrapped.findIndex(
       (el) => el.agenda === pointOnAgenda
     );
-    this.agendaElements.splice(idx, 1);
+    this.agendaElementsWrapped.splice(idx, 1);
   }
 
-  private addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
-    const idx = this.agendaElements.findIndex(
+  moveElement(previousIndex: number, currentIndex: number) {
+    moveItemInArray(this.agendaElementsWrapped, previousIndex, currentIndex);
+  }
+
+  private addElementAfter(
+    pointOnAgenda: AgendaPoint,
+    element: AgendaElement
+  ): void {
+    const idx = this.agendaElementsWrapped.findIndex(
       (el) => el.agenda === pointOnAgenda
     );
-    this.agendaElements.splice(idx + 1, 0, element);
+    this.agendaElementsWrapped.splice(idx + 1, 0, element);
   }
 
   private createAgendaElement(agendaPoint: AgendaPoint): AgendaElement {
@@ -49,7 +59,7 @@ export class Agenda {
   private validateAgenda(): void {
     this.missingAgendaValidator.validateAgenda(
       this.agendaConfiguration.validationPointTypes,
-      this.agendaElements
+      this.agendaElementsWrapped
     );
   }
 
@@ -59,6 +69,6 @@ export class Agenda {
       const agEl = this.createAgendaElement(agendaPoint);
       agenda.push(agEl);
     }
-    this.agendaElements = agenda;
+    this.agendaElementsWrapped = agenda;
   }
 }

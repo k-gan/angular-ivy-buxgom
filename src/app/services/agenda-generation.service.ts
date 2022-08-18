@@ -1,30 +1,32 @@
-import { Time } from '@angular/common';
-import { Injectable } from '@angular/core';
-import { DateTimeModifiers } from '../core/DateTimeModifiers';
-import { Agenda } from './agenda/agenda';
+import { Time } from "@angular/common";
+import { Injectable } from "@angular/core";
+import { DateTimeModifiers } from "../core/DateTimeModifiers";
+import { AgendaInput } from "./agenda-input";
+import { Agenda } from "./agenda/agenda";
+import { AgendaFactoryService } from "./agenda/agenda-factory.service";
 import { AgendaEnricherService } from "./agenda/enrichers/agenda-enricher.service";
-import { AgendaFactoryService } from './agenda/agenda-factory.service';
-import { TrainingAgendaPoint } from './agenda/points/training-agenda-point.enum';
-import { AgendaInput } from './agenda-input';
+import { TrainingAgendaPoint } from "./agenda/points/training-agenda-point.enum";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class AgendaGenerationService {
   constructor(
     private readonly agendaFactoryService: AgendaFactoryService,
-    private readonly agendaEnricherProvider : AgendaEnricherService
-  ) {
-  }
+    private readonly agendaEnricherProvider: AgendaEnricherService
+  ) {}
 
   generateAgenda(input: AgendaInput): Agenda {
-    const agenda : Agenda = this.agendaFactoryService.createAgenda(input.agendaType, input.label);
+    const agenda: Agenda = this.agendaFactoryService.createAgenda(
+      input.agendaType,
+      input.label
+    );
     const enricher = this.agendaEnricherProvider.getEnricher(input.agendaType);
-    const enrichedAgenda : Agenda = enricher.enrichAgenda(agenda, input);
+    const enrichedAgenda: Agenda = enricher.enrichAgenda(agenda, input);
     return this.finalizeAgenda(enrichedAgenda, input.atOffice);
   }
 
   finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {
     let startTime = atOffice;
-    for (let agendaElement of agenda.agendaElements.slice().reverse()) {
+    for (let agendaElement of agenda.agendaElements.reverse()) {
       startTime = DateTimeModifiers.decreaseTime(
         startTime,
         agendaElement.duration

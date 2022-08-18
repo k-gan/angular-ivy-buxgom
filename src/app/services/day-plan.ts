@@ -14,7 +14,7 @@ export class DayPlan {
     this.generateFromAgenda();
   }
 
-  public generateFromAgenda(): void {
+  generateFromAgenda(): void {
     this.label = this.agenda.name;
     this.atOffice = this.getStartTime(DefaultAgendaPoint.AtOffice);
     this.wakeUp = this.getStartTime(DefaultAgendaPoint.WakeUp);
@@ -22,7 +22,7 @@ export class DayPlan {
     this.lastHRBump = this.getStartTime(DefaultAgendaPoint.LastHRBump);
   }
 
-  private getStartTime(point: AgendaPoint): Time {
+  getStartTime(point: AgendaPoint): Time {
     const agEl = this.agenda.agendaElements.find((a) => a.agenda === point);
     return agEl?.startTime;
   }
