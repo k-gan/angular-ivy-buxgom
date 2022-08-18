@@ -1,4 +1,8 @@
-import { Time } from '@angular/common';
+import { Time } from "@angular/common";
+
+export function printTime(time: Time): string {
+  return time.hours + ":" + ("00" + time.minutes).slice(-2);
+}
 
 export class DateTimeModifiers {
   static createTodayDateWithTime(time: Time): Date {
@@ -43,9 +47,5 @@ export class DateTimeModifiers {
 
   static convertDateToTime(date: Date): Time {
     return { hours: date.getHours(), minutes: date.getMinutes() };
-  }
-
-  static printTime(time: Time): string {
-    return time.hours + ':' + ('00' + time.minutes).slice(-2);
   }
 }

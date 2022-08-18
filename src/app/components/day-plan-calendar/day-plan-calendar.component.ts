@@ -1,6 +1,5 @@
-import { Time } from "@angular/common";
 import { Component } from "@angular/core";
-import { DateTimeModifiers } from "../../core/DateTimeModifiers";
+import { TimeComponentBase } from "src/app/core/time-component-base";
 import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
 import { Agenda } from "../../services/agenda/agenda";
 import { DayPlan } from "../../services/day-plan";
@@ -10,7 +9,7 @@ import { DayPlan } from "../../services/day-plan";
   templateUrl: "./day-plan-calendar.component.html",
   styleUrls: ["./day-plan-calendar.component.css"],
 })
-export class DayPlanCalendarComponent {
+export class DayPlanCalendarComponent extends TimeComponentBase {
   dayPlans: DayPlan[] = [];
   visibility: boolean = false;
 
@@ -18,10 +17,8 @@ export class DayPlanCalendarComponent {
     agendaSyncService.agendaChanged$.subscribe((agenda: Agenda) => {
       this.agendaUpdate(agenda);
     });
-  }
 
-  printTime(time: Time): string {
-    return DateTimeModifiers.printTime(time);
+    super();
   }
 
   onRemove(dayPlan: any): void {
