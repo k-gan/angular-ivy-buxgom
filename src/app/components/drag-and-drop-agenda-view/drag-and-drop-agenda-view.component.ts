@@ -35,7 +35,7 @@ export class DragAndDropAgendaViewComponent implements OnInit {
       event.currentIndex
     );
     const atOffice: Time = this.agenda.agendaElements.find(
-      (e) => e.agenda === DefaultAgendaPoint.AtWork
+      (e) => e.agenda === DefaultAgendaPoint.AtOffice
     ).startTime;
 
     this.agendaGeneration.finalizeAgenda(this.agenda, atOffice);

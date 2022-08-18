@@ -16,7 +16,7 @@ export class DayPlan {
 
   public generateFromAgenda(): void {
     this.label = this.agenda.name;
-    this.atOffice = this.getStartTime(DefaultAgendaPoint.AtWork);
+    this.atOffice = this.getStartTime(DefaultAgendaPoint.AtOffice);
     this.wakeUp = this.getStartTime(DefaultAgendaPoint.WakeUp);
     this.toBed = this.getStartTime(DefaultAgendaPoint.ToBed);
     this.lastHRBump = this.getStartTime(DefaultAgendaPoint.LastHRBump);

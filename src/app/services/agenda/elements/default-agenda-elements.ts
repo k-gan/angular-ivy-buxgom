@@ -2,9 +2,9 @@
 // These will be interchangable between different agendas and it would be possible
 // to extract them from an agenda itself.
 
-import { Time } from '@angular/common';
-import { AgendaPoint } from '../points/agenda-point';
-import { DefaultAgendaPoint } from '../points/default-agenda-point';
+import { Time } from "@angular/common";
+import { AgendaPoint } from "../points/agenda-point";
+import { DefaultAgendaPoint } from "../points/default-agenda-point";
 
 // In the future we might go with something agenda-specific, but for now this is the approach.
 export class DefaultAgendaElements {
@@ -31,7 +31,7 @@ export class DefaultAgendaElements {
       hours: 0,
       minutes: 45,
     });
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.AtWork, {
+    this.wrappedAgendaElements.set(DefaultAgendaPoint.AtOffice, {
       hours: 0,
       minutes: 0,
     });
