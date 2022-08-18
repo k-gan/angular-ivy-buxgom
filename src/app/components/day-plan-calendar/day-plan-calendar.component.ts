@@ -1,17 +1,14 @@
-import { Time } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { DateTimeModifiers } from '../../core/DateTimeModifiers';
-import { AgendaSynchronizeService } from '../../services/agenda-synchronize.service';
-import { Agenda } from '../../services/agenda/agenda';
-import { AgendaElement } from '../../services/agenda/elements/agenda-element';
-import { AgendaPoint } from '../../services/agenda/points/agenda-point';
-import { DefaultAgendaPoint } from '../../services/agenda/points/default-agenda-point';
-import { DayPlan } from '../../services/day-plan';
+import { Time } from "@angular/common";
+import { Component } from "@angular/core";
+import { DateTimeModifiers } from "../../core/DateTimeModifiers";
+import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
+import { Agenda } from "../../services/agenda/agenda";
+import { DayPlan } from "../../services/day-plan";
 
 @Component({
-  selector: 'app-day-plan-calendar',
-  templateUrl: './day-plan-calendar.component.html',
-  styleUrls: ['./day-plan-calendar.component.css'],
+  selector: "app-day-plan-calendar",
+  templateUrl: "./day-plan-calendar.component.html",
+  styleUrls: ["./day-plan-calendar.component.css"],
 })
 export class DayPlanCalendarComponent {
   dayPlans: DayPlan[] = [];
@@ -37,26 +34,8 @@ export class DayPlanCalendarComponent {
   }
 
   private agendaUpdate(agenda: Agenda): void {
-    const dayPlan = this.createDayPlanFromAgenda(agenda);
+    const dayPlan = new DayPlan(agenda);
     this.dayPlans.push(dayPlan);
     this.updateVisibility();
-  }
-
-  private createDayPlanFromAgenda(agenda: Agenda): DayPlan {
-    const dayPlan = new DayPlan(
-      agenda.name,
-      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.AtWork),
-      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.WakeUp),
-      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.ToBed),
-      this.getStartTime(agenda.agendaElements, DefaultAgendaPoint.LastHRBump)
-    );
-    dayPlan.agenda = agenda;
-
-    return dayPlan;
-  }
-
-  private getStartTime(agenda: Array<AgendaElement>, point: AgendaPoint): Time {
-    const agEl = agenda.find((a) => a.agenda === point);
-    return agEl?.startTime;
   }
 }

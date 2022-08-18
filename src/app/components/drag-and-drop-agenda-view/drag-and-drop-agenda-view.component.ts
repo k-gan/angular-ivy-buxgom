@@ -1,14 +1,12 @@
-import { Component, Inject, Input, OnInit } from "@angular/core";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { AgendaSynchronizeService } from "src/app/services/agenda-synchronize.service";
+import { Time } from "@angular/common";
+import { Component, Input, OnInit } from "@angular/core";
+import { DateTimeModifiers } from "src/app/core/DateTimeModifiers";
+import { AgendaGenerationService } from "src/app/services/agenda-generation.service";
 import { Agenda } from "src/app/services/agenda/agenda";
 import { AgendaElement } from "src/app/services/agenda/elements/agenda-element";
-import { AgendaFactoryService } from "src/app/services/agenda/agenda-factory.service";
-import { AgendaType } from "src/app/services/agenda/agenda-type";
-import { DateTimeModifiers } from "src/app/core/DateTimeModifiers";
-import { Time } from "@angular/common";
-import { AgendaGenerationService } from "src/app/services/agenda-generation.service";
 import { DefaultAgendaPoint } from "src/app/services/agenda/points/default-agenda-point";
+import { DayPlan } from "src/app/services/day-plan";
 
 @Component({
   selector: "app-drag-and-drop-agenda-view",
@@ -16,7 +14,11 @@ import { DefaultAgendaPoint } from "src/app/services/agenda/points/default-agend
   styleUrls: ["./drag-and-drop-agenda-view.component.css"],
 })
 export class DragAndDropAgendaViewComponent implements OnInit {
-  @Input() agenda: Agenda;
+  @Input() dayPlan: DayPlan;
+
+  get agenda(): Agenda {
+    return this.dayPlan.agenda;
+  }
 
   constructor(private readonly agendaGeneration: AgendaGenerationService) {}
 
@@ -35,7 +37,8 @@ export class DragAndDropAgendaViewComponent implements OnInit {
     const atOffice: Time = this.agenda.agendaElements.find(
       (e) => e.agenda === DefaultAgendaPoint.AtWork
     ).startTime;
-    
+
     this.agendaGeneration.finalizeAgenda(this.agenda, atOffice);
+    this.dayPlan.generateFromAgenda();
   }
 }
