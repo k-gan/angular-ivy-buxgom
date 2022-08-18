@@ -1,0 +1,10 @@
+<div
+  *ngIf="agenda !== undefined"
+  cdkDropList
+  class="example-list"
+  (cdkDropListDropped)="drop($event)"
+>
+  <div class="example-box" *ngFor="let el of agenda.agendaElements" cdkDrag>
+    {{ el.name }}: {{ printTime(el.startTime) }} ({{ printTime(el.duration) }})
+  </div>
+</div>

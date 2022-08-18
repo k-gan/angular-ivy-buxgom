@@ -50,17 +50,10 @@
     <tr>
       <td>Details</td>
       <td *ngFor="let dayPlan of dayPlans">
-        <details>
+        <details open>
           <summary>expand</summary>
-          <table>
-            <tbody>
-              <tr *ngFor="let a of dayPlan.agenda.agendaElements">
-                <td>{{ a.name }}</td>
-                <td>{{ printTime(a.startTime) }}</td>
-                <td>({{ printTime(a.duration) }})</td>
-              </tr>
-            </tbody>
-          </table>
+          <app-drag-and-drop-agenda-view [dayPlan]="dayPlan">
+          </app-drag-and-drop-agenda-view>
         </details>
       </td>
     </tr>

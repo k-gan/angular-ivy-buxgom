@@ -1,29 +1,26 @@
-import { AgendaConfiguration } from './configuration/agenda-configuration';
-import { AgendaElement } from './elements/agenda-element';
-import { AgendaPoint } from './points/agenda-point';
-import { MissingAgendaValidatorService } from './missing-agenda-validator.service';
+import { moveItemInArray } from "@angular/cdk/drag-drop";
+import { AgendaConfiguration } from "./configuration/agenda-configuration";
+import { AgendaElement } from "./elements/agenda-element";
+import { AgendaPoint } from "./points/agenda-point";
 
 export class Agenda {
   readonly name: string;
 
   private agendaElementsWrapped: Array<AgendaElement>;
-  public get agendaElements() : Array<AgendaElement> {
+  get agendaElements(): Array<AgendaElement> {
     return this.agendaElementsWrapped.slice();
   }
 
   constructor(
-    private readonly missingAgendaValidator: MissingAgendaValidatorService,
     protected readonly agendaConfiguration: AgendaConfiguration,
     name?: string
   ) {
-    this.name = name ?? 'Agenda';
+    this.name = name ?? "Agenda";
 
     this.initializeAgenda();
-    this.validateAgenda();
   }
 
-  addPointAfter(point: AgendaPoint, after: AgendaPoint)
-  {
+  addPointAfter(point: AgendaPoint, after: AgendaPoint) {
     const el = this.createAgendaElement(point);
     this.addElementAfter(after, el);
   }
@@ -35,7 +32,14 @@ export class Agenda {
     this.agendaElementsWrapped.splice(idx, 1);
   }
 
-  private addElementAfter(pointOnAgenda: AgendaPoint, element: AgendaElement): void {
+  moveElement(previousIndex: number, currentIndex: number) {
+    moveItemInArray(this.agendaElementsWrapped, previousIndex, currentIndex);
+  }
+
+  private addElementAfter(
+    pointOnAgenda: AgendaPoint,
+    element: AgendaElement
+  ): void {
     const idx = this.agendaElementsWrapped.findIndex(
       (el) => el.agenda === pointOnAgenda
     );
@@ -46,13 +50,6 @@ export class Agenda {
     return new AgendaElement(
       agendaPoint,
       this.agendaConfiguration.availableAgendaPoints.get(agendaPoint)
-    );
-  }
-
-  private validateAgenda(): void {
-    this.missingAgendaValidator.validateAgenda(
-      this.agendaConfiguration.validationPointTypes,
-      this.agendaElementsWrapped
     );
   }
 
