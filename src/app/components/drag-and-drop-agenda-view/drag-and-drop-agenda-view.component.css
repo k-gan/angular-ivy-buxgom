@@ -1,4 +1,4 @@
-.example-list {
+.agenda-list {
   width: 250px;
   max-width: 100%;
   border: solid 1px #ccc;
@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.example-box {
+.agenda-element-box {
   padding: 20px 10px;
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
@@ -21,6 +21,14 @@
   cursor: move;
   background: white;
   font-size: 14px;
+}
+
+.agenda-element-box .label {
+  width: 120px;
+}
+
+.agenda-element-box .time {
+  width: 50px;
 }
 
 .cdk-drag-preview {
