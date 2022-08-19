@@ -4,6 +4,18 @@ export function printTime(time: Time): string {
   return time.hours + ":" + ("00" + time.minutes).slice(-2);
 }
 
+export function convertStringToTime(val: string): Time {
+  const parts = val.split(":");
+  const hours = parseInt(parts[0]);
+  const minutes = parts.length > 1 ? parseInt(parts[1]) : 0;
+
+  console.log(parts);
+
+  const time = { hours: hours, minutes: minutes };
+  console.log(time);
+  return time;
+}
+
 export class DateTimeModifiers {
   static createTodayDateWithTime(time: Time): Date {
     const today: Date = new Date();
