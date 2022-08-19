@@ -16,8 +16,8 @@
       [(ngModel)]="editedDuration"
       class="time"
       *ngIf="editedElement === el"
-      (keydown.Enter)="save()"
-      (keydown.Escape)="cancelEdit()"
+      (keydown.enter)="save()"
+      (focusout)="cancelEdit()"
     />
     <span class="time" *ngIf="editedElement !== el" (click)="edit(el)"
       >({{ printTime(el.duration) }})</span

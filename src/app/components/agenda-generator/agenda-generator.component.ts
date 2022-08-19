@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+import { AgendaNameService } from "src/app/services/agenda-name.service";
 import { AgendaGenerationService } from "../../services/agenda-generation.service";
 import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
 import { AgendaType } from "../../services/agenda/agenda-type";
@@ -18,10 +19,11 @@ export class AgendaGeneratorComponent {
   constructor(
     private agendaService: AgendaGenerationService,
     private agendaSync: AgendaSynchronizeService,
+    private agendaNameService: AgendaNameService,
     atOfficeTimeService: AtOfficeTimesProviderService
   ) {
     const atOfficeTimes = atOfficeTimeService.generateAtOfficeSelection();
-    this.model = new AgendaModel(atOfficeTimes);
+    this.model = new AgendaModel(atOfficeTimes, agendaNameService.getNext());
 
     this.agendaTypes = this.getAllAgendaTypes();
   }
@@ -38,5 +40,9 @@ export class AgendaGeneratorComponent {
       this.model.upToDateAgendaInput
     );
     this.agendaSync.changeAgenda(agenda);
+
+    this.model.agendaInput.label = this.agendaNameService.getNext(
+      this.model.agendaInput.label
+    );
   }
 }
