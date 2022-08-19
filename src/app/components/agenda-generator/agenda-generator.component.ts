@@ -3,7 +3,7 @@ import { AgendaNameService } from "src/app/services/agenda-name.service";
 import { AgendaGenerationService } from "../../services/agenda-generation.service";
 import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
 import { AgendaType } from "../../services/agenda/agenda-type";
-import { AtOfficeTimesProviderService } from "../../services/at-office-times-provider.service";
+import { SelectTimesService } from "../../services/select-times.service";
 import { AgendaModel } from "./agenda-model";
 
 @Component({
@@ -20,10 +20,15 @@ export class AgendaGeneratorComponent {
     private agendaService: AgendaGenerationService,
     private agendaSync: AgendaSynchronizeService,
     private agendaNameService: AgendaNameService,
-    atOfficeTimeService: AtOfficeTimesProviderService
+    selectTimesService: SelectTimesService
   ) {
-    const atOfficeTimes = atOfficeTimeService.generateAtOfficeSelection();
-    this.model = new AgendaModel(atOfficeTimes, agendaNameService.getNext());
+    const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
+    const trainingTimes = selectTimesService.generateAtTrainingSelection();
+    this.model = new AgendaModel(
+      atOfficeTimes,
+      trainingTimes,
+      agendaNameService.getNext()
+    );
 
     this.agendaTypes = this.getAllAgendaTypes();
   }

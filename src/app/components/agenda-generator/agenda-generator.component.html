@@ -50,11 +50,28 @@
     />
     <label for="running" class="form-label">Running</label>
   </div>
+  <div *ngIf="model.isTrainingAgenda" class="mb-3">
+    <label for="at-office" class="form-label">At office:</label>
+    <select
+      class="form-select"
+      required
+      [(ngModel)]="model.trainingTimeId"
+      name="at-office"
+    >
+      <option
+        *ngFor="let trainingTimeKey of Object.keys(model.trainingTimes)"
+        [value]="trainingTimeKey"
+      >
+        {{ model.trainingTimes[trainingTimeKey]["hours"] }}:{{
+          ("00" + model.atOfficeTimes[trainingTimeKey]["minutes"]).slice(-2)
+        }}
+      </option>
+    </select>
+  </div>
   <div class="mb-3">
     <label for="at-office" class="form-label">At office:</label>
     <select
       class="form-select"
-      aria-label="Default select example"
       required
       [(ngModel)]="model.atOfficeId"
       name="at-office"
@@ -63,8 +80,8 @@
         *ngFor="let atOfficeTimeKey of Object.keys(model.atOfficeTimes)"
         [value]="atOfficeTimeKey"
       >
-        {{ model.atOfficeTimes[atOfficeTimeKey]['hours'] }}:{{
-          ('00' + model.atOfficeTimes[atOfficeTimeKey]['minutes']).slice(-2)
+        {{ model.atOfficeTimes[atOfficeTimeKey]["hours"] }}:{{
+          ("00" + model.atOfficeTimes[atOfficeTimeKey]["minutes"]).slice(-2)
         }}
       </option>
     </select>
