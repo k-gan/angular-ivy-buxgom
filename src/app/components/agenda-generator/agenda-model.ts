@@ -14,7 +14,7 @@ export class AgendaModel {
   get upToDateAgendaInput(): AgendaInput {
     this.agendaInput.atOffice = this.atOfficeTimes[this.atOfficeId];
     this.agendaInput.trainingTime = this.trainingTimes[this.trainingTimeId];
-    console.log(this.agendaInput);
+
     return this.agendaInput;
   }
 
@@ -30,5 +30,7 @@ export class AgendaModel {
       false,
       atOfficeTimes[0]
     );
+
+    this.agendaInput.trainingTime = this.trainingTimes[this.trainingTimeId];
   }
 }

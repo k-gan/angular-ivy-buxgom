@@ -23,7 +23,8 @@ export class AgendaGeneratorComponent {
     selectTimesService: SelectTimesService
   ) {
     const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
-    const trainingTimes = selectTimesService.generateAtTrainingSelection();
+    const trainingTimes = selectTimesService.generateTrainingSelection();
+
     this.model = new AgendaModel(
       atOfficeTimes,
       trainingTimes,

@@ -7,6 +7,7 @@ import { AgendaGenerationService } from "src/app/services/agenda-generation.serv
 import { Agenda } from "src/app/services/agenda/agenda";
 import { AgendaElement } from "src/app/services/agenda/elements/agenda-element";
 import { DefaultAgendaPoint } from "src/app/services/agenda/points/default-agenda-point";
+import { TrainingAgendaPoint } from "src/app/services/agenda/points/training-agenda-point.enum";
 import { DayPlan } from "src/app/services/day-plan";
 
 @Component({
@@ -55,8 +56,11 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
     const atOffice: Time = this.dayPlan.getStartTime(
       DefaultAgendaPoint.AtOffice
     );
+    const trainingTime: Time = this.dayPlan.getStartTime(
+      TrainingAgendaPoint.Workout
+    );
 
-    this.agendaGeneration.finalizeAgenda(this.agenda, atOffice);
+    this.agendaGeneration.finalizeAgenda(this.agenda, atOffice, trainingTime);
     this.dayPlan.generateFromAgenda();
   }
 }

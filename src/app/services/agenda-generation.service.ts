@@ -21,10 +21,14 @@ export class AgendaGenerationService {
     );
     const enricher = this.agendaEnricherProvider.getEnricher(input.agendaType);
     const enrichedAgenda: Agenda = enricher.enrichAgenda(agenda, input);
-    return this.finalizeAgenda(enrichedAgenda, input.atOffice);
+    return this.finalizeAgenda(
+      enrichedAgenda,
+      input.atOffice,
+      input.trainingTime
+    );
   }
 
-  finalizeAgenda(agenda: Agenda, atOffice: Time): Agenda {
+  finalizeAgenda(agenda: Agenda, atOffice: Time, trainingTime: Time): Agenda {
     let startTime = atOffice;
     for (let agendaElement of agenda.agendaElements.reverse()) {
       startTime = DateTimeModifiers.decreaseTime(
@@ -32,7 +36,7 @@ export class AgendaGenerationService {
         agendaElement.duration
       );
       if (agendaElement.agenda == TrainingAgendaPoint.Workout) {
-        const trainingTime: Time = { hours: 7, minutes: 0 };
+        if (trainingTime === undefined) trainingTime = { hours: 7, minutes: 0 };
         if (
           startTime.hours * 60 + startTime.minutes <
           trainingTime.hours * 60 + trainingTime.minutes

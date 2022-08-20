@@ -10,9 +10,9 @@ export class SelectTimesService {
     return this._dayPlanSettings;
   }
 
-  generateAtTrainingSelection(): Time[] {
-    const topBoundary = this.dayPlanSettings.earliestTrainingTime;
-    const bottomBoundary = this.dayPlanSettings.latestTrainingTime;
+  generateTrainingSelection(): Time[] {
+    const topBoundary = this.dayPlanSettings.latestTrainingTime;
+    const bottomBoundary = this.dayPlanSettings.earliestTrainingTime;
 
     return this.generateSelection(bottomBoundary, topBoundary);
   }

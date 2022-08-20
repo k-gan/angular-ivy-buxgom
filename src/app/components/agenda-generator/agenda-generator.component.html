@@ -51,7 +51,7 @@
     <label for="running" class="form-label">Running</label>
   </div>
   <div *ngIf="model.isTrainingAgenda" class="mb-3">
-    <label for="at-office" class="form-label">At office:</label>
+    <label for="at-gym" class="form-label">At the gym:</label>
     <select
       class="form-select"
       required
@@ -63,7 +63,7 @@
         [value]="trainingTimeKey"
       >
         {{ model.trainingTimes[trainingTimeKey]["hours"] }}:{{
-          ("00" + model.atOfficeTimes[trainingTimeKey]["minutes"]).slice(-2)
+          ("00" + model.trainingTimes[trainingTimeKey]["minutes"]).slice(-2)
         }}
       </option>
     </select>
