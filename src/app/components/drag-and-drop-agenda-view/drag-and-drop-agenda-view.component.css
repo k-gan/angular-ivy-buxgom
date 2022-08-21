@@ -14,7 +14,7 @@
   border-bottom: solid 1px #ccc;
   color: rgba(0, 0, 0, 0.87);
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
@@ -29,6 +29,12 @@
 
 .agenda-element-box .time {
   width: 50px;
+}
+
+.agenda-element-box .warning {
+  margin-top: 5px;
+  width: 170px;
+  color: rgba(255, 0, 0, 0.64);
 }
 
 .cdk-drag-preview {

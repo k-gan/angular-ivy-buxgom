@@ -5,22 +5,27 @@
   (cdkDropListDropped)="drop($event)"
 >
   <div
-    class="agenda-element-box"
+    class="agenda-element-box container"
     *ngFor="let el of agenda.agendaElements"
     cdkDrag
   >
-    <span class="label">{{ el.name }}:</span>
-    <span class="time"> {{ printTime(el.startTime) }}</span>
-    <input
-      type="text"
-      [(ngModel)]="editedDuration"
-      class="time"
-      *ngIf="editedElement === el"
-      (keydown.enter)="save()"
-      (focusout)="cancelEdit()"
-    />
-    <span class="time" *ngIf="editedElement !== el" (click)="edit(el)"
-      >({{ printTime(el.duration) }})</span
-    >
+    <div class="row">
+      <span class="label">{{ el.name }}:</span>
+      <span class="time"> {{ printTime(el.startTime) }}</span>
+      <input
+        type="text"
+        [(ngModel)]="editedDuration"
+        class="time"
+        *ngIf="editedElement === el"
+        (keydown.enter)="save()"
+        (focusout)="cancelEdit()"
+      />
+      <span class="time" *ngIf="editedElement !== el" (click)="edit(el)"
+        >({{ printTime(el.duration) }})</span
+      >
+    </div>
+    <div class="row warning" *ngIf="el.warning !== ''">
+      {{ el.warning }}
+    </div>
   </div>
 </div>
