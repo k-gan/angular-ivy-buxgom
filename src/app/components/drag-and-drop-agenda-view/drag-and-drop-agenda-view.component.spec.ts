@@ -48,9 +48,9 @@ describe("DragAndDropAgendaViewComponent", () => {
       event: undefined,
     };
 
-    const agendaInput = new AgendaInput();
-    agendaInput.agendaType = AgendaType.Default;
-    agendaInput.atOffice = { hours: 9, minutes: 0 };
+    const agendaType = AgendaType.Default;
+    const atOffice = { hours: 9, minutes: 0 };
+    const agendaInput = new AgendaInput('label', agendaType, false, false, atOffice);
 
     const agenda = agendaGeneration.generateAgenda(agendaInput);
     dayPlan = new DayPlan(agenda);

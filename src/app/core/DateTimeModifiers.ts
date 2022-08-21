@@ -9,11 +9,26 @@ export function convertStringToTime(val: string): Time {
   const hours = parseInt(parts[0]);
   const minutes = parts.length > 1 ? parseInt(parts[1]) : 0;
 
-  console.log(parts);
+  return { hours: hours, minutes: minutes };
+}
 
-  const time = { hours: hours, minutes: minutes };
-  console.log(time);
-  return time;
+export function addTimes(time1: Time, time2: Time): Time {
+  const date = DateTimeModifiers.createTodayDateWithTime(time1);
+  const resultDate = DateTimeModifiers.addTimeToDate(date, time2);
+  return DateTimeModifiers.convertDateToTime(resultDate);
+}
+
+export function compareTimes(time1: Time, time2: Time): number {
+  const time1Checksum = generateTimeChecksum(time1);
+  const time2Checksum = generateTimeChecksum(time2);
+
+  if (time1Checksum < time2Checksum) return -1;
+  if (time1Checksum === time2Checksum) return 0;
+  return 1;
+}
+
+export function generateTimeChecksum(time: Time) {
+  return time.hours * 60 + time.minutes;
 }
 
 export class DateTimeModifiers {
@@ -26,7 +41,7 @@ export class DateTimeModifiers {
     return new Date(
       fromDate.getFullYear(),
       fromDate.getMonth(),
-      fromDate.getDay(),
+      fromDate.getDate(),
       time.hours,
       time.minutes
     );
