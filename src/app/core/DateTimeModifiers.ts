@@ -41,7 +41,7 @@ export class DateTimeModifiers {
     return new Date(
       fromDate.getFullYear(),
       fromDate.getMonth(),
-      fromDate.getDay(),
+      fromDate.getDate(),
       time.hours,
       time.minutes
     );

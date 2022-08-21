@@ -10,6 +10,7 @@ import { AgendaInput } from "./agenda-input";
 import { Agenda } from "./agenda/agenda";
 import { AgendaFactoryService } from "./agenda/agenda-factory.service";
 import { AgendaEnricherService } from "./agenda/enrichers/agenda-enricher.service";
+import { HomeAgendaPoint } from "./agenda/points/home-agenda-point";
 import { TrainingAgendaPoint } from "./agenda/points/training-agenda-point.enum";
 
 @Injectable({ providedIn: "root" })
@@ -29,11 +30,17 @@ export class AgendaGenerationService {
     return this.finalizeAgenda(
       enrichedAgenda,
       input.atOffice,
-      input.trainingTime
+      input.trainingTime,
+      input.tomeksTime
     );
   }
 
-  finalizeAgenda(agenda: Agenda, atOffice: Time, trainingTime: Time): Agenda {
+  finalizeAgenda(
+    agenda: Agenda,
+    atOffice: Time,
+    trainingTime: Time,
+    tomeksTime: Time
+  ): Agenda {
     let startTime = atOffice;
     let previousStartTime = atOffice;
 
@@ -43,8 +50,10 @@ export class AgendaGenerationService {
         agendaElement.duration
       );
 
-      if (agendaElement.agenda == TrainingAgendaPoint.Workout) {
+      if (agendaElement.agenda === TrainingAgendaPoint.Workout) {
         startTime = this.generateWorkoutStartTime(trainingTime);
+      } else if (agendaElement.agenda === HomeAgendaPoint.AtTomeks) {
+        startTime = this.generateWorkoutStartTime(tomeksTime);
       }
 
       const endTime = addTimes(startTime, agendaElement.duration);

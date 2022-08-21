@@ -68,6 +68,24 @@
       </option>
     </select>
   </div>
+  <div *ngIf="model.isTomeksAgenda" class="mb-3">
+    <label for="at-tomeks" class="form-label">At Tomek's:</label>
+    <select
+      class="form-select"
+      required
+      [(ngModel)]="model.tomeksTimeId"
+      name="at-office"
+    >
+      <option
+        *ngFor="let tomeksTimeKey of Object.keys(model.tomeksTimes)"
+        [value]="tomeksTimeKey"
+      >
+        {{ model.tomeksTimes[tomeksTimeKey]["hours"] }}:{{
+          ("00" + model.tomeksTimes[tomeksTimeKey]["minutes"]).slice(-2)
+        }}
+      </option>
+    </select>
+  </div>
   <div class="mb-3">
     <label for="at-office" class="form-label">At office:</label>
     <select

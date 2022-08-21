@@ -17,6 +17,13 @@ export class SelectTimesService {
     return this.generateSelection(bottomBoundary, topBoundary);
   }
 
+  generateTomeksSelection(): Time[] {
+    const topBoundary = this.dayPlanSettings.latestTomeksTime;
+    const bottomBoundary = this.dayPlanSettings.earliestTomeksTime;
+
+    return this.generateSelection(bottomBoundary, topBoundary);
+  }
+
   generateAtOfficeSelection(): Time[] {
     const topBoundary = this.dayPlanSettings.latestAtOfficeTime;
     const bottomBoundary = this.dayPlanSettings.earliestAtOfficeTime;

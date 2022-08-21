@@ -24,10 +24,12 @@ export class AgendaGeneratorComponent {
   ) {
     const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
     const trainingTimes = selectTimesService.generateTrainingSelection();
+    const tomekTimes = selectTimesService.generateTomeksSelection();
 
     this.model = new AgendaModel(
       atOfficeTimes,
       trainingTimes,
+      tomekTimes,
       agendaNameService.getNext()
     );
 

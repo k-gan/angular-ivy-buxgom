@@ -3,6 +3,7 @@ import { AgendaType } from "./agenda/agenda-type";
 
 export class AgendaInput {
   trainingTime: Time;
+  tomeksTime: Time;
 
   constructor(
     public label: string,
