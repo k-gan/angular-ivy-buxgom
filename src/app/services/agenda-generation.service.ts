@@ -44,7 +44,7 @@ export class AgendaGenerationService {
       );
 
       if (agendaElement.agenda == TrainingAgendaPoint.Workout) {
-        startTime = this.generateWorkoutStartTime(trainingTime, startTime);
+        startTime = this.generateWorkoutStartTime(trainingTime);
       }
 
       const endTime = addTimes(startTime, agendaElement.duration);
@@ -60,18 +60,12 @@ export class AgendaGenerationService {
 
     return agenda;
   }
-  generateWorkoutStartTime(trainingTime: Time, startTime: Time): Time {
+
+  generateWorkoutStartTime(trainingTime: Time): Time {
     if (trainingTime === undefined) {
       return { hours: 7, minutes: 0 };
     }
 
-    if (
-      startTime.hours * 60 + startTime.minutes <
-      trainingTime.hours * 60 + trainingTime.minutes
-    ) {
-      return trainingTime;
-    }
-
-    return startTime;
+    return trainingTime;
   }
 }
