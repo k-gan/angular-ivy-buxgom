@@ -91,9 +91,9 @@ describe("Time", () => {
     const hoursToAdd = expHours - time.hours;
     const timeToAdd = new Time(hoursToAdd, 0);
 
-    time.add(timeToAdd);
+    const resultTime = time.add(timeToAdd);
 
-    expect(time.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   it("adding 1 hour to 23 hours results in 0 hours", () => {
@@ -101,9 +101,9 @@ describe("Time", () => {
     const addTime = new Time(1, 0);
     const expHours = 0;
 
-    baseTime.add(addTime);
+    const resultTime = baseTime.add(addTime);
 
-    expect(baseTime.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   it("adding 2 hours to 23 hours results in 1 hours", () => {
@@ -111,9 +111,9 @@ describe("Time", () => {
     const addTime = new Time(2, 0);
     const expHours = 1;
 
-    baseTime.add(addTime);
+    const resultTime = baseTime.add(addTime);
 
-    expect(baseTime.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   it("adding 23 hours to 23 hours results in 22 hours", () => {
@@ -121,9 +121,9 @@ describe("Time", () => {
     const addTime = new Time(23, 0);
     const expHours = baseTime.hours + addTime.hours - 24;
 
-    baseTime.add(addTime);
+    const resultTime = baseTime.add(addTime);
 
-    expect(baseTime.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   // add() minutes
@@ -132,9 +132,9 @@ describe("Time", () => {
     const minutesToAdd = expMinutes - time.minutes;
     const timeToAdd = new Time(time.hours, minutesToAdd);
 
-    time.add(timeToAdd);
+    const resultTime = time.add(timeToAdd);
 
-    expect(time.minutes).toBe(expMinutes);
+    expect(resultTime.minutes).toBe(expMinutes);
   });
 
   it("adding 1 minute to 59 minutes results in adding 1 to hours and setting minutes to 0", () => {
@@ -142,10 +142,10 @@ describe("Time", () => {
     const addTime = new Time(0, 1);
     const expTime = new Time(baseTime.hours + 1, 0);
 
-    baseTime.add(addTime);
+    const resultTime = baseTime.add(addTime);
 
-    expect(baseTime.hours).toBe(expTime.hours);
-    expect(baseTime.minutes).toBe(expTime.minutes);
+    expect(resultTime.hours).toBe(expTime.hours);
+    expect(resultTime.minutes).toBe(expTime.minutes);
   });
 
   it("adding 2 minutes to 59 minutes results in 1 minute", () => {
@@ -153,10 +153,10 @@ describe("Time", () => {
     const addTime = new Time(0, 2);
     const expTime = new Time(baseTime.hours + 1, 1);
 
-    baseTime.add(addTime);
+    const resultTime = baseTime.add(addTime);
 
-    expect(baseTime.hours).toBe(expTime.hours);
-    expect(baseTime.minutes).toBe(expTime.minutes);
+    expect(resultTime.hours).toBe(expTime.hours);
+    expect(resultTime.minutes).toBe(expTime.minutes);
   });
 
   it("adding 59 minutes to 59 minutes results in 58 minutes", () => {
@@ -164,10 +164,10 @@ describe("Time", () => {
     const addTime = new Time(0, 59);
     const expTime = new Time(baseTime.hours + 1, 58);
 
-    baseTime.add(addTime);
+    const resultTime = baseTime.add(addTime);
 
-    expect(baseTime.hours).toBe(expTime.hours);
-    expect(baseTime.minutes).toBe(expTime.minutes);
+    expect(resultTime.hours).toBe(expTime.hours);
+    expect(resultTime.minutes).toBe(expTime.minutes);
   });
 
   // subtract() hours
@@ -176,9 +176,9 @@ describe("Time", () => {
     const hoursToSubtract = expHours + time.hours;
     const timeToAdd = new Time(hoursToSubtract, 0);
 
-    time.subtract(timeToAdd);
+    const resultTime = time.subtract(timeToAdd);
 
-    expect(time.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   it("subracting 1 hour from 0 hours results in 23 hours", () => {
@@ -186,9 +186,9 @@ describe("Time", () => {
     const subtractTime = new Time(1, 0);
     const expHours = 23;
 
-    baseTime.subtract(subtractTime);
+    const resultTime = baseTime.subtract(subtractTime);
 
-    expect(baseTime.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   it("subtracting 2 hours from 0 hours results in 22 hours", () => {
@@ -196,9 +196,9 @@ describe("Time", () => {
     const subtractTime = new Time(2, 0);
     const expHours = 22;
 
-    baseTime.subtract(subtractTime);
+    const resultTime = baseTime.subtract(subtractTime);
 
-    expect(baseTime.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   it("subtracting 23 hours from 23 hours results in 22 hours", () => {
@@ -206,9 +206,9 @@ describe("Time", () => {
     const subtractTime = new Time(2, 0);
     const expHours = 22;
 
-    baseTime.subtract(subtractTime);
+    const resultTime = baseTime.subtract(subtractTime);
 
-    expect(baseTime.hours).toBe(expHours);
+    expect(resultTime.hours).toBe(expHours);
   });
 
   // subtract() minutes
@@ -217,9 +217,9 @@ describe("Time", () => {
     const minutesToSubtract = expMinutes + time.minutes;
     const timeToSubtract = new Time(0, minutesToSubtract);
 
-    time.subtract(timeToSubtract);
+    const resultTime = time.subtract(timeToSubtract);
 
-    expect(time.minutes).toBe(expMinutes);
+    expect(resultTime.minutes).toBe(expMinutes);
   });
 
   it("subtracting 1 minute from 0:0 minutes results in 23:59", () => {
@@ -228,10 +228,10 @@ describe("Time", () => {
     const expHours = 23;
     const expMinutes = 59;
 
-    baseTime.subtract(subtractTime);
+    const resultTime = baseTime.subtract(subtractTime);
 
-    expect(baseTime.hours).toBe(expHours);
-    expect(baseTime.minutes).toBe(expMinutes);
+    expect(resultTime.hours).toBe(expHours);
+    expect(resultTime.minutes).toBe(expMinutes);
   });
 
   it("subtracting 2 minutes from 0:0 results in 23:58", () => {
@@ -240,10 +240,10 @@ describe("Time", () => {
     const expHours = 23;
     const expMinutes = 58;
 
-    baseTime.subtract(subtractTime);
+    const resultTime = baseTime.subtract(subtractTime);
 
-    expect(baseTime.hours).toBe(expHours);
-    expect(baseTime.minutes).toBe(expMinutes);
+    expect(resultTime.hours).toBe(expHours);
+    expect(resultTime.minutes).toBe(expMinutes);
   });
 
   it("subtracting 59 minutes from 59 minutes results in 0 minutes and the same hours", () => {
@@ -252,9 +252,9 @@ describe("Time", () => {
     const expHours = 0;
     const expMinutes = 0;
 
-    baseTime.subtract(subtractTime);
+    const resultTime = baseTime.subtract(subtractTime);
 
-    expect(baseTime.hours).toBe(expHours);
-    expect(baseTime.minutes).toBe(expMinutes);
+    expect(resultTime.hours).toBe(expHours);
+    expect(resultTime.minutes).toBe(expMinutes);
   });
 });
