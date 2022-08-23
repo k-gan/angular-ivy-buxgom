@@ -12,25 +12,6 @@ export function convertStringToTime(val: string): Time {
   return { hours: hours, minutes: minutes };
 }
 
-export function addTimes(time1: Time, time2: Time): Time {
-  const date = DateTimeModifiers.createTodayDateWithTime(time1);
-  const resultDate = DateTimeModifiers.addTimeToDate(date, time2);
-  return DateTimeModifiers.convertDateToTime(resultDate);
-}
-
-export function compareTimes(time1: Time, time2: Time): number {
-  const time1Checksum = generateTimeChecksum(time1);
-  const time2Checksum = generateTimeChecksum(time2);
-
-  if (time1Checksum < time2Checksum) return -1;
-  if (time1Checksum === time2Checksum) return 0;
-  return 1;
-}
-
-export function generateTimeChecksum(time: Time) {
-  return time.hours * 60 + time.minutes;
-}
-
 export class DateTimeModifiers {
   static createTodayDateWithTime(time: Time): Date {
     const today: Date = new Date();

@@ -1,6 +1,5 @@
-import { Time } from "@angular/common";
 import { Injectable } from "@angular/core";
-import { DateTimeModifiers } from "../core/DateTimeModifiers";
+import { Time } from "../core/time";
 import { DayPlanSettings } from "../settings.service";
 
 @Injectable({ providedIn: "root" })
@@ -29,24 +28,12 @@ export class SelectTimesService {
   }
 
   private generateSelection(bottomBoundary: Time, topBoundary: Time): Time[] {
-    const endDate = DateTimeModifiers.createTodayDateWithTime(topBoundary);
-    let startDate = DateTimeModifiers.createDateWithTime(
-      endDate,
-      bottomBoundary
-    );
-
+    const timeIncrements = this.dayPlanSettings.selectionTimesIncrements;
+    let time = bottomBoundary;
     const times = new Array<Time>();
-    while (startDate <= endDate) {
-      let time: Time = {
-        hours: startDate.getHours(),
-        minutes: startDate.getMinutes(),
-      };
+    while (time.isEqual(topBoundary) || time.isBefore(topBoundary)) {
       times.push(time);
-
-      startDate = DateTimeModifiers.addTimeToDate(
-        startDate,
-        this.dayPlanSettings.selectionTimesIncrements
-      );
+      time = time.add(timeIncrements);
     }
 
     return times;

@@ -1,11 +1,5 @@
-import { Time } from "@angular/common";
 import { Injectable } from "@angular/core";
-import {
-  addTimes,
-  compareTimes,
-  DateTimeModifiers,
-  printTime,
-} from "../core/DateTimeModifiers";
+import { Time } from "../core/time";
 import { AgendaInput } from "./agenda-input";
 import { Agenda } from "./agenda/agenda";
 import { AgendaFactoryService } from "./agenda/agenda-factory.service";
@@ -45,10 +39,7 @@ export class AgendaGenerationService {
     let previousStartTime = atOffice;
 
     for (let agendaElement of agenda.agendaElements.reverse()) {
-      startTime = DateTimeModifiers.decreaseTime(
-        startTime,
-        agendaElement.duration
-      );
+      startTime = startTime.subtract(agendaElement.duration);
 
       if (agendaElement.agenda === TrainingAgendaPoint.Workout) {
         startTime = this.generateWorkoutStartTime(trainingTime);
@@ -56,11 +47,9 @@ export class AgendaGenerationService {
         startTime = this.generateWorkoutStartTime(tomeksTime);
       }
 
-      const endTime = addTimes(startTime, agendaElement.duration);
-      if (compareTimes(endTime, previousStartTime) !== 0) {
-        agendaElement.warning = `Ends at ${printTime(
-          endTime
-        )} while the next event starts at ${printTime(previousStartTime)}`;
+      const endTime = startTime.add(agendaElement.duration);
+      if (!endTime.isEqual(previousStartTime)) {
+        agendaElement.warning = { nextPointStart: previousStartTime };
       }
 
       agendaElement.startTime = startTime;
@@ -71,9 +60,7 @@ export class AgendaGenerationService {
   }
 
   generateWorkoutStartTime(trainingTime: Time): Time {
-    if (trainingTime === undefined) {
-      return { hours: 7, minutes: 0 };
-    }
+    if (trainingTime === undefined) return new Time(7, 0);
 
     return trainingTime;
   }

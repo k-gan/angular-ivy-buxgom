@@ -1,6 +1,5 @@
-import { Time } from "@angular/common";
 import { Component } from "@angular/core";
-import { generateTimeChecksum } from "src/app/core/DateTimeModifiers";
+import { Time } from "src/app/core/time";
 import { AgendaNameService } from "src/app/services/agenda-name.service";
 import { AgendaGenerationService } from "../../services/agenda-generation.service";
 import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
@@ -60,8 +59,8 @@ export class AgendaGeneratorComponent {
   }
 
   private initTrainingTime(defaultTime: Time) {
-    const trainingIdx = this.model.trainingTimes.findIndex(
-      (t) => generateTimeChecksum(t) === generateTimeChecksum(defaultTime)
+    const trainingIdx = this.model.trainingTimes.findIndex((t) =>
+      t.isEqual(defaultTime)
     );
 
     if (trainingIdx > -1) {

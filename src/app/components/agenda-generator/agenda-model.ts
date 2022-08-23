@@ -1,4 +1,4 @@
-import { Time } from "@angular/common";
+import { Time } from "src/app/core/time";
 import { AgendaType } from "src/app/services/agenda/agenda-type";
 import { AgendaInput } from "../../services/agenda-input";
 

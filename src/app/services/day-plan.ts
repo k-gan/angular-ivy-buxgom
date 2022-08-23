@@ -1,4 +1,4 @@
-import { Time } from "@angular/common";
+import { Time } from "../core/time";
 import { Agenda } from "./agenda/agenda";
 import { AgendaPoint } from "./agenda/points/agenda-point";
 import { DefaultAgendaPoint } from "./agenda/points/default-agenda-point";

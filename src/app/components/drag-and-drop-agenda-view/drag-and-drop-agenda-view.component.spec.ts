@@ -1,9 +1,6 @@
-/* tslint:disable:no-unused-variable */
-
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
-import { Time } from "@angular/common";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
-import { printTime } from "src/app/core/DateTimeModifiers";
+import { Time } from "src/app/core/time";
 import { AgendaInput } from "src/app/services/agenda-input";
 import { AgendaType } from "src/app/services/agenda/agenda-type";
 import { AgendaConfigurationService } from "src/app/services/agenda/configuration/agenda-configuration.service";
@@ -13,6 +10,10 @@ import { DayPlan } from "src/app/services/day-plan";
 import { AgendaGenerationService } from "../../services/agenda-generation.service";
 import { AgendaFactoryService } from "../../services/agenda/agenda-factory.service";
 import { DragAndDropAgendaViewComponent } from "./drag-and-drop-agenda-view.component";
+
+function printTime(time: Time) {
+  return `${time.hours}:${("00" + time.minutes).slice(-2)}`;
+}
 
 // Still no tests for regenerating day plan on save/drop
 describe("DragAndDropAgendaViewComponent", () => {
@@ -49,8 +50,14 @@ describe("DragAndDropAgendaViewComponent", () => {
     };
 
     const agendaType = AgendaType.Default;
-    const atOffice = { hours: 9, minutes: 0 };
-    const agendaInput = new AgendaInput('label', agendaType, false, false, atOffice);
+    const atOffice = new Time(9, 0);
+    const agendaInput = new AgendaInput(
+      "label",
+      agendaType,
+      false,
+      false,
+      atOffice
+    );
 
     const agenda = agendaGeneration.generateAgenda(agendaInput);
     dayPlan = new DayPlan(agenda);
@@ -97,7 +104,7 @@ describe("DragAndDropAgendaViewComponent", () => {
   it("save sets duration correctly", () => {
     // Arrange
     const el = dayPlan.agenda.agendaElements[0];
-    const duration: Time = { hours: el.duration.hours + 1, minutes: 0 };
+    const duration = new Time(el.duration.hours + 1, 0);
     component.edit(el);
 
     // Act
@@ -125,14 +132,11 @@ describe("DragAndDropAgendaViewComponent", () => {
     // Arrange
     const el = dayPlan.agenda.agendaElements[0];
     const shift = 1;
-    const duration: Time = {
-      hours: el.duration.hours + shift,
-      minutes: el.duration.minutes,
-    };
-    const expStarTime: Time = {
-      hours: el.startTime.hours - shift,
-      minutes: el.startTime.minutes,
-    };
+    const duration = new Time(el.duration.hours + shift, el.duration.minutes);
+    const expStarTime = new Time(
+      el.startTime.hours - shift,
+      el.startTime.minutes
+    );
     component.edit(el);
 
     // Act

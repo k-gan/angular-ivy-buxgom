@@ -2,7 +2,7 @@
 // These will be interchangable between different agendas and it would be possible
 // to extract them from an agenda itself.
 
-import { Time } from "@angular/common";
+import { Time } from "src/app/core/time";
 import { AgendaPoint } from "../points/agenda-point";
 import { DefaultAgendaPoint } from "../points/default-agenda-point";
 
@@ -15,29 +15,20 @@ export class DefaultAgendaElements {
   }
 
   constructor() {
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.LastHRBump, {
-      hours: 3,
-      minutes: 30,
-    });
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.ToBed, {
-      hours: 7,
-      minutes: 0,
-    });
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.WakeUp, {
-      hours: 0,
-      minutes: 0,
-    });
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.BathroomTime, {
-      hours: 0,
-      minutes: 45,
-    });
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.AtOffice, {
-      hours: 0,
-      minutes: 0,
-    });
-    this.wrappedAgendaElements.set(DefaultAgendaPoint.MorningPages, {
-      hours: 0,
-      minutes: 25,
-    });
+    this.wrappedAgendaElements.set(
+      DefaultAgendaPoint.LastHRBump,
+      new Time(3, 30)
+    );
+    this.wrappedAgendaElements.set(DefaultAgendaPoint.ToBed, new Time(7, 0));
+    this.wrappedAgendaElements.set(DefaultAgendaPoint.WakeUp, new Time(0, 0));
+    this.wrappedAgendaElements.set(
+      DefaultAgendaPoint.BathroomTime,
+      new Time(0, 45)
+    );
+    this.wrappedAgendaElements.set(DefaultAgendaPoint.AtOffice, new Time(0, 0));
+    this.wrappedAgendaElements.set(
+      DefaultAgendaPoint.MorningPages,
+      new Time(0, 25)
+    );
   }
 }

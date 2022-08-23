@@ -1,3 +1,4 @@
+import { Time } from "src/app/core/time";
 import { Agenda } from "./agenda";
 import { DefaultAgendaConfiguration } from "./configuration/default-agenda-configuration";
 import { TrainingAgendaConfiguration } from "./configuration/training-agenda-configuration";
@@ -29,10 +30,7 @@ describe("Agenda", () => {
   });
 
   it("AgendaElements cannot be changed from outside", () => {
-    const element = new AgendaElement(HomeAgendaPoint.AtTomeks, {
-      hours: 1,
-      minutes: 0,
-    });
+    const element = new AgendaElement(HomeAgendaPoint.AtTomeks, new Time(1, 0));
     const elements = agenda.agendaElements;
     elements.push(element);
 

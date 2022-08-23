@@ -1,7 +1,6 @@
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
-import { Time } from "@angular/common";
 import { Component, Input } from "@angular/core";
-import { convertStringToTime } from "src/app/core/DateTimeModifiers";
+import { Time } from "src/app/core/time";
 import { TimeComponentBase } from "src/app/core/time-component-base";
 import { AgendaGenerationService } from "src/app/services/agenda-generation.service";
 import { Agenda } from "src/app/services/agenda/agenda";
@@ -41,7 +40,7 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
   }
 
   save(): void {
-    this.editedElement.duration = convertStringToTime(this.editedDuration);
+    this.editedElement.duration = Time.parse(this.editedDuration);
     this.cancelEdit();
 
     this.regenerateAgenda();

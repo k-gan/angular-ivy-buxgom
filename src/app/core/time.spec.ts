@@ -39,6 +39,11 @@ describe("Time", () => {
     expect(() => new Time(1, 60)).toThrowError();
   });
 
+  // parse()
+  it("parse returns correctly parsed for correct value", () => {
+    expect()
+  });
+
   // Checksum
   it("checksum equals to total minutes", () => {
     const expChecksum = time.hours * 60 + time.minutes;
