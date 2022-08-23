@@ -1,14 +1,11 @@
 import { Time } from "@angular/common";
 import { Injectable } from "@angular/core";
 import { DateTimeModifiers } from "../core/DateTimeModifiers";
-import { DayPlanSettings } from "../settings";
+import { DayPlanSettings } from "../settings.service";
 
 @Injectable({ providedIn: "root" })
 export class SelectTimesService {
-  private _dayPlanSettings: DayPlanSettings = new DayPlanSettings();
-  public get dayPlanSettings(): DayPlanSettings {
-    return this._dayPlanSettings;
-  }
+  constructor(public readonly dayPlanSettings: DayPlanSettings) {}
 
   generateTrainingSelection(): Time[] {
     const topBoundary = this.dayPlanSettings.latestTrainingTime;
@@ -48,7 +45,7 @@ export class SelectTimesService {
 
       startDate = DateTimeModifiers.addTimeToDate(
         startDate,
-        this._dayPlanSettings.selectionTimesIncrements
+        this.dayPlanSettings.selectionTimesIncrements
       );
     }
 

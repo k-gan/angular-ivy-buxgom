@@ -1,4 +1,6 @@
+import { Time } from "@angular/common";
 import { Component } from "@angular/core";
+import { generateTimeChecksum } from "src/app/core/DateTimeModifiers";
 import { AgendaNameService } from "src/app/services/agenda-name.service";
 import { AgendaGenerationService } from "../../services/agenda-generation.service";
 import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
@@ -22,25 +24,8 @@ export class AgendaGeneratorComponent {
     private agendaNameService: AgendaNameService,
     selectTimesService: SelectTimesService
   ) {
-    const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
-    const trainingTimes = selectTimesService.generateTrainingSelection();
-    const tomekTimes = selectTimesService.generateTomeksSelection();
-
-    this.model = new AgendaModel(
-      atOfficeTimes,
-      trainingTimes,
-      tomekTimes,
-      agendaNameService.getNext()
-    );
-
+    this.initModel(selectTimesService, agendaNameService);
     this.agendaTypes = this.getAllAgendaTypes();
-  }
-
-  private getAllAgendaTypes(): AgendaType[] {
-    const keys = Object.values(AgendaType).filter(
-      (k) => typeof AgendaType[k as any] !== "number"
-    );
-    return keys.map((k) => AgendaType[k]);
   }
 
   onSubmit() {
@@ -52,5 +37,42 @@ export class AgendaGeneratorComponent {
     this.model.agendaInput.label = this.agendaNameService.getNext(
       this.model.agendaInput.label
     );
+  }
+
+  private initModel(
+    selectTimesService: SelectTimesService,
+    agendaNameService: AgendaNameService
+  ) {
+    const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
+    const trainingTimes = selectTimesService.generateTrainingSelection();
+    const tomekTimes = selectTimesService.generateTomeksSelection();
+
+    this.model = new AgendaModel(
+      atOfficeTimes,
+      trainingTimes,
+      tomekTimes,
+      agendaNameService.getNext()
+    );
+
+    this.initTrainingTime(
+      selectTimesService.dayPlanSettings.defaultTrainingTime
+    );
+  }
+
+  private initTrainingTime(defaultTime: Time) {
+    const trainingIdx = this.model.trainingTimes.findIndex(
+      (t) => generateTimeChecksum(t) === generateTimeChecksum(defaultTime)
+    );
+
+    if (trainingIdx > -1) {
+      this.model.trainingTimeId = trainingIdx;
+    }
+  }
+
+  private getAllAgendaTypes(): AgendaType[] {
+    const keys = Object.values(AgendaType).filter(
+      (k) => typeof AgendaType[k as any] !== "number"
+    );
+    return keys.map((k) => AgendaType[k]);
   }
 }
