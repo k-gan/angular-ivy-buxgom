@@ -52,7 +52,7 @@ export class AgendaGeneratorComponent {
     );
 
     this.initWorkoutTime(
-      selectTimesService.dayPlanSettings.defaultWorkoutTime
+      selectTimesService.dayPlanSettings.workout.defaultTime
     );
   }
 

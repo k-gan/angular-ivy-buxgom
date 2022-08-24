@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { AgendaPointSettings } from "../AgendaPointSettings";
 import { Time } from "../core/time";
 import { DayPlanSettings } from "../settings.service";
 
@@ -7,31 +8,22 @@ export class SelectTimesService {
   constructor(public readonly dayPlanSettings: DayPlanSettings) {}
 
   generateWorkoutSelection(): Time[] {
-    const topBoundary = this.dayPlanSettings.latestWorkoutTime;
-    const bottomBoundary = this.dayPlanSettings.earliestWorkoutTime;
-
-    return this.generateSelection(bottomBoundary, topBoundary);
+    return this.generateSelection(this.dayPlanSettings.workout);
   }
 
   generateAtTomeksSelection(): Time[] {
-    const topBoundary = this.dayPlanSettings.latestAtTomeksTime;
-    const bottomBoundary = this.dayPlanSettings.earliestAtTomeksTime;
-
-    return this.generateSelection(bottomBoundary, topBoundary);
+    return this.generateSelection(this.dayPlanSettings.atTomeks);
   }
 
   generateAtOfficeSelection(): Time[] {
-    const topBoundary = this.dayPlanSettings.latestAtOfficeTime;
-    const bottomBoundary = this.dayPlanSettings.earliestAtOfficeTime;
-
-    return this.generateSelection(bottomBoundary, topBoundary);
+    return this.generateSelection(this.dayPlanSettings.atOffice);
   }
 
-  private generateSelection(bottomBoundary: Time, topBoundary: Time): Time[] {
+  private generateSelection(settings: AgendaPointSettings): Time[] {
     const timeIncrements = this.dayPlanSettings.selectionTimesIncrements;
-    let time = bottomBoundary;
+    let time = settings.earliest;
     const times = new Array<Time>();
-    while (time.isEqual(topBoundary) || time.isBefore(topBoundary)) {
+    while (time.isEqual(settings.latest) || time.isBefore(settings.latest)) {
       times.push(time);
       time = time.add(timeIncrements);
     }
