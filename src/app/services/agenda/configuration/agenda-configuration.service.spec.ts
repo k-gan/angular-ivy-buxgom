@@ -2,13 +2,13 @@ import { AgendaType } from "../agenda-type";
 import { AgendaConfiguration } from "./agenda-configuration";
 import { AgendaConfigurationService } from "./agenda-configuration.service";
 import { DefaultAgendaConfiguration } from "./default-agenda-configuration";
-import { TrainingAgendaConfiguration } from "./training-agenda-configuration";
+import { WorkoutAgendaConfiguration } from "./workout-agenda-configuration";
 
 describe("AgendaConfigurationService", () => {
   const agendaConfigMap = new Map<AgendaType, AgendaConfiguration>([
     [AgendaType.Default, new DefaultAgendaConfiguration()],
     [AgendaType.Tomek, new DefaultAgendaConfiguration()],
-    [AgendaType.Workout, new TrainingAgendaConfiguration()],
+    [AgendaType.Workout, new WorkoutAgendaConfiguration()],
   ]);
 
   const provider = new AgendaConfigurationService();

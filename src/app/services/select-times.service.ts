@@ -6,9 +6,9 @@ import { DayPlanSettings } from "../settings.service";
 export class SelectTimesService {
   constructor(public readonly dayPlanSettings: DayPlanSettings) {}
 
-  generateTrainingSelection(): Time[] {
-    const topBoundary = this.dayPlanSettings.latestTrainingTime;
-    const bottomBoundary = this.dayPlanSettings.earliestTrainingTime;
+  generateWorkoutSelection(): Time[] {
+    const topBoundary = this.dayPlanSettings.latestWorkoutTime;
+    const bottomBoundary = this.dayPlanSettings.earliestWorkoutTime;
 
     return this.generateSelection(bottomBoundary, topBoundary);
   }

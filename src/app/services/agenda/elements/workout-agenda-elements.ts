@@ -1,11 +1,11 @@
 import { Time } from "src/app/core/time";
-import { TrainingAgendaPoint } from "../points/training-agenda-point.enum";
+import { WorkoutAgendaPoint } from "../points/workout-agenda-point.enum";
 
-export class TrainingAgendaElements {
+export class WorkoutAgendaElements {
   // TODO: this will need to be extended to provide overrides for start times
   // eg, workout always starts at 7 - but sometimes starts laters
   // and it would be good to be able to override it from the UI
-  private readonly wrappedAgendaElements = new Map<TrainingAgendaPoint, Time>();
+  private readonly wrappedAgendaElements = new Map<WorkoutAgendaPoint, Time>();
 
   public get agendaElements() {
     return this.wrappedAgendaElements;
@@ -13,24 +13,21 @@ export class TrainingAgendaElements {
 
   constructor() {
     this.wrappedAgendaElements.set(
-      TrainingAgendaPoint.PreGymBathroom,
+      WorkoutAgendaPoint.PreGymBathroom,
       new Time(0, 20)
     );
     this.wrappedAgendaElements.set(
-      TrainingAgendaPoint.DriveToGymFromHome,
+      WorkoutAgendaPoint.DriveToGymFromHome,
       new Time(0, 20)
     );
-    this.wrappedAgendaElements.set(TrainingAgendaPoint.WarmUp, new Time(0, 30));
+    this.wrappedAgendaElements.set(WorkoutAgendaPoint.WarmUp, new Time(0, 30));
+    this.wrappedAgendaElements.set(WorkoutAgendaPoint.Workout, new Time(1, 30));
     this.wrappedAgendaElements.set(
-      TrainingAgendaPoint.Workout,
-      new Time(1, 30)
-    );
-    this.wrappedAgendaElements.set(
-      TrainingAgendaPoint.PostWorkout,
+      WorkoutAgendaPoint.PostWorkout,
       new Time(0, 20)
     );
     this.wrappedAgendaElements.set(
-      TrainingAgendaPoint.DriveToOfficeFromGym,
+      WorkoutAgendaPoint.DriveToOfficeFromGym,
       new Time(0, 20)
     );
   }

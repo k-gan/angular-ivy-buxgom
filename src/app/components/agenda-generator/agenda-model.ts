@@ -1,13 +1,13 @@
 import { Time } from "src/app/core/time";
 import { AgendaType } from "src/app/services/agenda/agenda-type";
 import { HomeAgendaPoint } from "src/app/services/agenda/points/home-agenda-point";
-import { TrainingAgendaPoint } from "src/app/services/agenda/points/training-agenda-point.enum";
+import { WorkoutAgendaPoint } from "src/app/services/agenda/points/workout-agenda-point.enum";
 import { AgendaInput } from "../../services/agenda-input";
 
 export class AgendaModel {
   private agendaInputWrapped: AgendaInput;
   atOfficeId: number = 0;
-  trainingTimeId: number = 0;
+  workoutTimeId: number = 0;
   atTomeksTimeId: number = 0;
 
   get isWorkoutAgenda(): boolean {
@@ -46,8 +46,8 @@ export class AgendaModel {
       this.atTomeksTimes[this.atTomeksTimeId]
     );
     this.agendaInputWrapped.startTimeOverrides.set(
-      TrainingAgendaPoint.Workout,
-      this.workoutTimes[this.trainingTimeId]
+      WorkoutAgendaPoint.Workout,
+      this.workoutTimes[this.workoutTimeId]
     );
   }
 }

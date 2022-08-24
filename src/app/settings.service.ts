@@ -9,9 +9,9 @@ export class DayPlanSettings {
   readonly earliestAtTomeksTime: Time = new Time(8, 30);
   readonly latestAtTomeksTime: Time = new Time(9, 45);
 
-  readonly defaultTrainingTime: Time = new Time(7, 0);
-  readonly earliestTrainingTime: Time = new Time(6, 0);
-  readonly latestTrainingTime: Time = new Time(9, 0);
+  readonly defaultWorkoutTime: Time = new Time(7, 0);
+  readonly earliestWorkoutTime: Time = new Time(6, 0);
+  readonly latestWorkoutTime: Time = new Time(9, 0);
 
   readonly selectionTimesIncrements: Time = new Time(0, 15);
 }

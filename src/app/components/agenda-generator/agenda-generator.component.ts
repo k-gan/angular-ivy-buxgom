@@ -41,28 +41,28 @@ export class AgendaGeneratorComponent {
     agendaNameService: AgendaNameService
   ) {
     const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
-    const trainingTimes = selectTimesService.generateTrainingSelection();
+    const workoutTimes = selectTimesService.generateWorkoutSelection();
     const tomekTimes = selectTimesService.generateAtTomeksSelection();
 
     this.model = new AgendaModel(
       atOfficeTimes,
-      trainingTimes,
+      workoutTimes,
       tomekTimes,
       agendaNameService.getNext()
     );
 
-    this.initTrainingTime(
-      selectTimesService.dayPlanSettings.defaultTrainingTime
+    this.initWorkoutTime(
+      selectTimesService.dayPlanSettings.defaultWorkoutTime
     );
   }
 
-  private initTrainingTime(defaultTime: Time) {
-    const trainingIdx = this.model.workoutTimes.findIndex((t) =>
+  private initWorkoutTime(defaultTime: Time) {
+    const workoutIdx = this.model.workoutTimes.findIndex((t) =>
       t.isEqual(defaultTime)
     );
 
-    if (trainingIdx > -1) {
-      this.model.trainingTimeId = trainingIdx;
+    if (workoutIdx > -1) {
+      this.model.workoutTimeId = workoutIdx;
     }
   }
 

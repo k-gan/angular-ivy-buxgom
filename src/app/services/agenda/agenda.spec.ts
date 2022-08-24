@@ -1,7 +1,7 @@
 import { Time } from "src/app/core/time";
 import { Agenda } from "./agenda";
 import { DefaultAgendaConfiguration } from "./configuration/default-agenda-configuration";
-import { TrainingAgendaConfiguration } from "./configuration/training-agenda-configuration";
+import { WorkoutAgendaConfiguration } from "./configuration/workout-agenda-configuration";
 import { AgendaElement } from "./elements/agenda-element";
 import { HomeAgendaPoint } from "./points/home-agenda-point";
 
@@ -14,7 +14,7 @@ describe("Agenda", () => {
   it("initialies agenda based on the configuration", () => {
     const configs = [
       new DefaultAgendaConfiguration(),
-      new TrainingAgendaConfiguration(),
+      new WorkoutAgendaConfiguration(),
     ];
 
     for (let config of configs) {
