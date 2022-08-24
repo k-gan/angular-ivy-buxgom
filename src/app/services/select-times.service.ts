@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { AgendaPointSettings } from "../AgendaPointSettings";
+import { AgendaPointSettings } from "../agenda-point-settings";
 import { Time } from "../core/time";
 import { DayPlanSettings } from "../settings.service";
 
