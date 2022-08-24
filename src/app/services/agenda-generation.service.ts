@@ -4,8 +4,7 @@ import { AgendaInput } from "./agenda-input";
 import { Agenda } from "./agenda/agenda";
 import { AgendaFactoryService } from "./agenda/agenda-factory.service";
 import { AgendaEnricherService } from "./agenda/enrichers/agenda-enricher.service";
-import { HomeAgendaPoint } from "./agenda/points/home-agenda-point";
-import { TrainingAgendaPoint } from "./agenda/points/training-agenda-point.enum";
+import { AgendaPoint } from "./agenda/points/agenda-point";
 
 @Injectable({ providedIn: "root" })
 export class AgendaGenerationService {
@@ -24,32 +23,29 @@ export class AgendaGenerationService {
     return this.finalizeAgenda(
       enrichedAgenda,
       input.atOffice,
-      input.trainingTime,
-      input.tomeksTime
+      input.startTimeOverrides
     );
   }
 
   finalizeAgenda(
     agenda: Agenda,
     atOffice: Time,
-    trainingTime: Time,
-    tomeksTime: Time
+    startTimeOverrides: Map<AgendaPoint, Time>
   ): Agenda {
     let startTime = atOffice;
     let previousStartTime = atOffice;
 
     for (let agendaElement of agenda.agendaElements.reverse()) {
-      startTime = startTime.subtract(agendaElement.duration);
-
-      if (agendaElement.agenda === TrainingAgendaPoint.Workout) {
-        startTime = this.generateWorkoutStartTime(trainingTime);
-      } else if (agendaElement.agenda === HomeAgendaPoint.AtTomeks) {
-        startTime = this.generateWorkoutStartTime(tomeksTime);
-      }
+      startTime =
+        startTimeOverrides.get(agendaElement.agenda) ??
+        startTime.subtract(agendaElement.duration);
 
       const endTime = startTime.add(agendaElement.duration);
       if (!endTime.isEqual(previousStartTime)) {
-        agendaElement.warning = { nextPointStart: previousStartTime };
+        agendaElement.warning = {
+          endTime: endTime,
+          nextPointStartTime: previousStartTime,
+        };
       }
 
       agendaElement.startTime = startTime;

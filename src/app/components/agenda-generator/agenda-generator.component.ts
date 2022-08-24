@@ -28,9 +28,7 @@ export class AgendaGeneratorComponent {
   }
 
   onSubmit() {
-    const agenda = this.agendaService.generateAgenda(
-      this.model.upToDateAgendaInput
-    );
+    const agenda = this.agendaService.generateAgenda(this.model.agendaInput);
     this.agendaSync.changeAgenda(agenda);
 
     this.model.agendaInput.label = this.agendaNameService.getNext(

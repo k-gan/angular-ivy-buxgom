@@ -5,6 +5,7 @@ import { TimeComponentBase } from "src/app/core/time-component-base";
 import { AgendaGenerationService } from "src/app/services/agenda-generation.service";
 import { Agenda } from "src/app/services/agenda/agenda";
 import { AgendaElement } from "src/app/services/agenda/elements/agenda-element";
+import { AgendaPoint } from "src/app/services/agenda/points/agenda-point";
 import { DefaultAgendaPoint } from "src/app/services/agenda/points/default-agenda-point";
 import { HomeAgendaPoint } from "src/app/services/agenda/points/home-agenda-point";
 import { TrainingAgendaPoint } from "src/app/services/agenda/points/training-agenda-point.enum";
@@ -53,22 +54,21 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
   }
 
   private regenerateAgenda(): void {
-    const atOffice: Time = this.dayPlan.getStartTime(
-      DefaultAgendaPoint.AtOffice
-    );
-    const trainingTime: Time = this.dayPlan.getStartTime(
-      TrainingAgendaPoint.Workout
-    );
-    const tomeksTime: Time = this.dayPlan.getStartTime(
-      HomeAgendaPoint.AtTomeks
-    );
+    const atOffice: Time = this.getStartTime(DefaultAgendaPoint.AtOffice);
 
-    this.agendaGeneration.finalizeAgenda(
-      this.agenda,
-      atOffice,
-      trainingTime,
-      tomeksTime
-    );
+    const times = new Map<AgendaPoint, Time>([
+      [HomeAgendaPoint.AtTomeks, this.getStartTime(HomeAgendaPoint.AtTomeks)],
+      [
+        TrainingAgendaPoint.Workout,
+        this.getStartTime(TrainingAgendaPoint.Workout),
+      ],
+    ]);
+
+    this.agendaGeneration.finalizeAgenda(this.agenda, atOffice, times);
     this.dayPlan.generateFromAgenda();
+  }
+
+  private getStartTime(point: AgendaPoint): Time {
+    return this.dayPlan.getStartTime(point);
   }
 }

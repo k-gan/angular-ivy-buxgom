@@ -1,5 +1,6 @@
 import { Time } from "../../../core/time";
 
 export interface agendaElementWarning {
-  nextPointStart: Time;
+  endTime: Time;
+  nextPointStartTime: Time;
 }

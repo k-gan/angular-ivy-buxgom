@@ -24,8 +24,9 @@
         >({{ printTime(el.duration) }})</span
       >
     </div>
-    <div class="row warning" *ngIf="el.warning !== ''">
-      {{ el.warning }}
+    <div class="row warning" *ngIf="el.warning !== undefined">
+      End time: {{ printTime(el.warning?.endTime) }}<br />
+      Next start time: {{ printTime(el.warning?.nextPointStartTime) }}
     </div>
   </div>
 </div>
