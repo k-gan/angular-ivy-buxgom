@@ -8,13 +8,13 @@ export class AgendaModel {
   private agendaInputWrapped: AgendaInput;
   atOfficeId: number = 0;
   trainingTimeId: number = 0;
-  tomeksTimeId: number = 0;
+  atTomeksTimeId: number = 0;
 
-  get isTrainingAgenda(): boolean {
-    return this.agendaInputWrapped.agendaType === AgendaType.Training;
+  get isWorkoutAgenda(): boolean {
+    return this.agendaInputWrapped.agendaType === AgendaType.Workout;
   }
 
-  get isTomeksAgenda(): boolean {
+  get isAtTomeksAgenda(): boolean {
     return this.agendaInputWrapped.agendaType === AgendaType.Tomek;
   }
 
@@ -25,8 +25,8 @@ export class AgendaModel {
 
   constructor(
     public atOfficeTimes: Time[],
-    public trainingTimes: Time[],
-    public tomeksTimes: Time[],
+    public workoutTimes: Time[],
+    public atTomeksTimes: Time[],
     label?: string
   ) {
     this.agendaInputWrapped = new AgendaInput(
@@ -43,11 +43,11 @@ export class AgendaModel {
 
     this.agendaInputWrapped.startTimeOverrides.set(
       HomeAgendaPoint.AtTomeks,
-      this.tomeksTimes[this.tomeksTimeId]
+      this.atTomeksTimes[this.atTomeksTimeId]
     );
     this.agendaInputWrapped.startTimeOverrides.set(
       TrainingAgendaPoint.Workout,
-      this.trainingTimes[this.trainingTimeId]
+      this.workoutTimes[this.trainingTimeId]
     );
   }
 }

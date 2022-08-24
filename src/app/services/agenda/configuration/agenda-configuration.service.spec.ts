@@ -5,22 +5,22 @@ import { DefaultAgendaConfiguration } from "./default-agenda-configuration";
 import { TrainingAgendaConfiguration } from "./training-agenda-configuration";
 
 describe("AgendaConfigurationService", () => {
-    const agendaConfigMap = new Map<AgendaType, AgendaConfiguration>([
-        [AgendaType.Default, new DefaultAgendaConfiguration()],
-        [AgendaType.Tomek, new DefaultAgendaConfiguration()],
-        [AgendaType.Training, new TrainingAgendaConfiguration()]
-      ]);
+  const agendaConfigMap = new Map<AgendaType, AgendaConfiguration>([
+    [AgendaType.Default, new DefaultAgendaConfiguration()],
+    [AgendaType.Tomek, new DefaultAgendaConfiguration()],
+    [AgendaType.Workout, new TrainingAgendaConfiguration()],
+  ]);
 
-      const provider = new AgendaConfigurationService();
+  const provider = new AgendaConfigurationService();
 
-      for (let map of agendaConfigMap) {
-        const agendaType = map[0];
-        const expectedConfigType = map[1].constructor.name;
-        const actualConfig = provider.getConfiguration(agendaType);
-        const actualConfigType = actualConfig.constructor.name;
+  for (let map of agendaConfigMap) {
+    const agendaType = map[0];
+    const expectedConfigType = map[1].constructor.name;
+    const actualConfig = provider.getConfiguration(agendaType);
+    const actualConfigType = actualConfig.constructor.name;
 
-        it(`For ${ agendaType } agenda type, config type is expected to be ${ expectedConfigType }.`, () => {
-            expect(actualConfigType).toBe(expectedConfigType);
-        });
-      }
+    it(`For ${agendaType} agenda type, config type is expected to be ${expectedConfigType}.`, () => {
+      expect(actualConfigType).toBe(expectedConfigType);
+    });
+  }
 });

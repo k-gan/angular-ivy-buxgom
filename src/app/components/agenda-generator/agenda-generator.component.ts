@@ -42,7 +42,7 @@ export class AgendaGeneratorComponent {
   ) {
     const atOfficeTimes = selectTimesService.generateAtOfficeSelection();
     const trainingTimes = selectTimesService.generateTrainingSelection();
-    const tomekTimes = selectTimesService.generateTomeksSelection();
+    const tomekTimes = selectTimesService.generateAtTomeksSelection();
 
     this.model = new AgendaModel(
       atOfficeTimes,
@@ -57,7 +57,7 @@ export class AgendaGeneratorComponent {
   }
 
   private initTrainingTime(defaultTime: Time) {
-    const trainingIdx = this.model.trainingTimes.findIndex((t) =>
+    const trainingIdx = this.model.workoutTimes.findIndex((t) =>
       t.isEqual(defaultTime)
     );
 

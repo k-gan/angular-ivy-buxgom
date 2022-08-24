@@ -4,24 +4,24 @@ import { DefaultAgendaEnricher } from "./default-agenda-enricher";
 import { TomekAgendaEnricher } from "./tomek-agenda-enricher";
 import { TrainingAgendaEnricher } from "./training-agenda-enricher";
 
-describe('AgendaEnricherService', () => {
-    const enricherMap : Map<AgendaType, string> = new Map<AgendaType, string>([
-        [AgendaType.Default, DefaultAgendaEnricher.name],
-        [AgendaType.Tomek, TomekAgendaEnricher.name],
-        [AgendaType.Training, TrainingAgendaEnricher.name],
-    ]);
+describe("AgendaEnricherService", () => {
+  const enricherMap: Map<AgendaType, string> = new Map<AgendaType, string>([
+    [AgendaType.Default, DefaultAgendaEnricher.name],
+    [AgendaType.Tomek, TomekAgendaEnricher.name],
+    [AgendaType.Workout, TrainingAgendaEnricher.name],
+  ]);
 
-    const provider = new AgendaEnricherService();
+  const provider = new AgendaEnricherService();
 
-    for(let map of enricherMap) {
-        const agendaType = map[0];
-        const expectedEnricherType = map[1];
+  for (let map of enricherMap) {
+    const agendaType = map[0];
+    const expectedEnricherType = map[1];
 
-        it(`For ${ agendaType } agenda type, expect ${ expectedEnricherType } enricher.`, () => {
-            const enricher = provider.getEnricher(agendaType);
-            const actualEnricherType = enricher.constructor.name;
+    it(`For ${agendaType} agenda type, expect ${expectedEnricherType} enricher.`, () => {
+      const enricher = provider.getEnricher(agendaType);
+      const actualEnricherType = enricher.constructor.name;
 
-            expect(expectedEnricherType).toBe(actualEnricherType);
-        });
-    }
+      expect(expectedEnricherType).toBe(actualEnricherType);
+    });
+  }
 });
