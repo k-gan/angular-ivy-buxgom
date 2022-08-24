@@ -55,9 +55,9 @@ export class AgendaGenerationService {
     return agenda;
   }
 
-  generateWorkoutStartTime(trainingTime: Time): Time {
-    if (trainingTime === undefined) return new Time(7, 0);
+  generateWorkoutStartTime(workoutTime: Time): Time {
+    if (workoutTime === undefined) return new Time(7, 0);
 
-    return trainingTime;
+    return workoutTime;
   }
 }

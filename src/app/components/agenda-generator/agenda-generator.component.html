@@ -50,38 +50,38 @@
     />
     <label for="running" class="form-label">Running</label>
   </div>
-  <div *ngIf="model.isTrainingAgenda" class="mb-3">
-    <label for="at-gym" class="form-label">At the gym:</label>
+  <div *ngIf="model.isWorkoutAgenda" class="mb-3">
+    <label for="workout" class="form-label">Workout:</label>
     <select
       class="form-select"
       required
-      [(ngModel)]="model.trainingTimeId"
-      name="at-office"
+      [(ngModel)]="model.workoutTimeId"
+      name="workout"
     >
       <option
-        *ngFor="let trainingTimeKey of Object.keys(model.trainingTimes)"
-        [value]="trainingTimeKey"
+        *ngFor="let workoutTimeKey of Object.keys(model.workoutTimes)"
+        [value]="workoutTimeKey"
       >
-        {{ model.trainingTimes[trainingTimeKey]["hours"] }}:{{
-          ("00" + model.trainingTimes[trainingTimeKey]["minutes"]).slice(-2)
+        {{ model.workoutTimes[workoutTimeKey]["hours"] }}:{{
+          ("00" + model.workoutTimes[workoutTimeKey]["minutes"]).slice(-2)
         }}
       </option>
     </select>
   </div>
-  <div *ngIf="model.isTomeksAgenda" class="mb-3">
+  <div *ngIf="model.isAtTomeksAgenda" class="mb-3">
     <label for="at-tomeks" class="form-label">At Tomek's:</label>
     <select
       class="form-select"
       required
-      [(ngModel)]="model.tomeksTimeId"
-      name="at-office"
+      [(ngModel)]="model.atTomeksTimeId"
+      name="at-tomeks"
     >
       <option
-        *ngFor="let tomeksTimeKey of Object.keys(model.tomeksTimes)"
-        [value]="tomeksTimeKey"
+        *ngFor="let atTomeksTimeKey of Object.keys(model.atTomeksTimes)"
+        [value]="atTomeksTimeKey"
       >
-        {{ model.tomeksTimes[tomeksTimeKey]["hours"] }}:{{
-          ("00" + model.tomeksTimes[tomeksTimeKey]["minutes"]).slice(-2)
+        {{ model.atTomeksTimes[atTomeksTimeKey]["hours"] }}:{{
+          ("00" + model.atTomeksTimes[atTomeksTimeKey]["minutes"]).slice(-2)
         }}
       </option>
     </select>

@@ -8,7 +8,7 @@ import { AgendaElement } from "src/app/services/agenda/elements/agenda-element";
 import { AgendaPoint } from "src/app/services/agenda/points/agenda-point";
 import { DefaultAgendaPoint } from "src/app/services/agenda/points/default-agenda-point";
 import { HomeAgendaPoint } from "src/app/services/agenda/points/home-agenda-point";
-import { TrainingAgendaPoint } from "src/app/services/agenda/points/training-agenda-point.enum";
+import { WorkoutAgendaPoint } from "src/app/services/agenda/points/workout-agenda-point.enum";
 import { DayPlan } from "src/app/services/day-plan";
 
 @Component({
@@ -59,8 +59,8 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
     const times = new Map<AgendaPoint, Time>([
       [HomeAgendaPoint.AtTomeks, this.getStartTime(HomeAgendaPoint.AtTomeks)],
       [
-        TrainingAgendaPoint.Workout,
-        this.getStartTime(TrainingAgendaPoint.Workout),
+        WorkoutAgendaPoint.Workout,
+        this.getStartTime(WorkoutAgendaPoint.Workout),
       ],
     ]);
 
