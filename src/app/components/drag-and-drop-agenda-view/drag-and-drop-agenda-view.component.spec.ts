@@ -1,6 +1,7 @@
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
 import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { Time } from "src/app/core/time";
+import { AgendaFinalizer } from "src/app/services/agenda-finalizer.service";
 import { AgendaInput } from "src/app/services/agenda-input";
 import { AgendaType } from "src/app/services/agenda/agenda-type";
 import { AgendaConfigurationService } from "src/app/services/agenda/configuration/agenda-configuration.service";
@@ -26,6 +27,7 @@ describe("DragAndDropAgendaViewComponent", () => {
     new AgendaFactoryService(new AgendaConfigurationService()),
     new AgendaEnricherService()
   );
+  let agendaFinalizer: AgendaFinalizer = new AgendaFinalizer();
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
@@ -53,8 +55,13 @@ describe("DragAndDropAgendaViewComponent", () => {
     const atOffice = new Time(9, 0);
     const agendaInput = new AgendaInput("label", agendaType, atOffice);
 
-    const agenda = agendaGeneration.generateAgenda(agendaInput);
-    dayPlan = new DayPlan(agenda);
+    const agenda = agendaGeneration.createEnrichedAgenda(agendaInput);
+    const finalAgenda = agendaFinalizer.finalizeAgenda(
+      agenda,
+      agendaInput.atOffice,
+      agendaInput.startTimeOverrides
+    );
+    dayPlan = new DayPlan(finalAgenda);
     dayPlan.generateFromAgenda();
 
     component.dayPlan = dayPlan;

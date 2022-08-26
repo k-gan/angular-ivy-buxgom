@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Time } from "src/app/core/time";
+import { AgendaFinalizer } from "src/app/services/agenda-finalizer.service";
 import { AgendaNameService } from "src/app/services/agenda-name.service";
 import { AgendaGenerationService } from "../../services/agenda-generation.service";
 import { AgendaSynchronizeService } from "../../services/agenda-synchronize.service";
@@ -19,6 +20,7 @@ export class AgendaGeneratorComponent {
 
   constructor(
     private agendaService: AgendaGenerationService,
+    private agendaFinalizer: AgendaFinalizer,
     private agendaSync: AgendaSynchronizeService,
     private agendaNameService: AgendaNameService,
     selectTimesService: SelectTimesService
@@ -28,8 +30,15 @@ export class AgendaGeneratorComponent {
   }
 
   onSubmit() {
-    const agenda = this.agendaService.generateAgenda(this.model.agendaInput);
-    this.agendaSync.changeAgenda(agenda);
+    const inputAgenda = this.agendaService.createEnrichedAgenda(
+      this.model.agendaInput
+    );
+    const finalAgenda = this.agendaFinalizer.finalizeAgenda(
+      inputAgenda,
+      this.model.agendaInput.atOffice,
+      this.model.agendaInput.startTimeOverrides
+    );
+    this.agendaSync.changeAgenda(finalAgenda);
 
     this.model.agendaInput.label = this.agendaNameService.getNext(
       this.model.agendaInput.label

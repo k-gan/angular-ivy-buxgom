@@ -2,7 +2,7 @@ import { CdkDragDrop } from "@angular/cdk/drag-drop";
 import { Component, Input } from "@angular/core";
 import { Time } from "src/app/core/time";
 import { TimeComponentBase } from "src/app/core/time-component-base";
-import { AgendaGenerationService } from "src/app/services/agenda-generation.service";
+import { AgendaFinalizer } from "src/app/services/agenda-finalizer.service";
 import { Agenda } from "src/app/services/agenda/agenda";
 import { AgendaElement } from "src/app/services/agenda/elements/agenda-element";
 import { AgendaPoint } from "src/app/services/agenda/points/agenda-point";
@@ -26,7 +26,7 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
     return this.dayPlan.agenda;
   }
 
-  constructor(private readonly agendaGeneration: AgendaGenerationService) {
+  constructor(private readonly agendaFinalizer: AgendaFinalizer) {
     super();
   }
 
@@ -44,16 +44,16 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
     this.editedElement.duration = Time.parse(this.editedDuration);
     this.cancelEdit();
 
-    this.regenerateAgenda();
+    this.recalculateAgenda();
   }
 
   drop(event: CdkDragDrop<AgendaElement[]>) {
     this.agenda.moveElement(event.previousIndex, event.currentIndex);
 
-    this.regenerateAgenda();
+    this.recalculateAgenda();
   }
 
-  private regenerateAgenda(): void {
+  private recalculateAgenda(): void {
     const atOffice: Time = this.getStartTime(DefaultAgendaPoint.AtOffice);
 
     const times = new Map<AgendaPoint, Time>([
@@ -64,7 +64,7 @@ export class DragAndDropAgendaViewComponent extends TimeComponentBase {
       ],
     ]);
 
-    this.agendaGeneration.finalizeAgenda(this.agenda, atOffice, times);
+    this.agendaFinalizer.finalizeAgenda(this.agenda, atOffice, times);
     this.dayPlan.generateFromAgenda();
   }
 
